@@ -4,59 +4,273 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    background: #0a0c12;
-    background-image: radial-gradient(circle at 10% 20%, rgba(30, 20, 40, 0.6) 0%, #0a0c12 90%);
+    background: #040915;
+    color: #e9edf8;
     font-family: 'Inter', sans-serif;
-    color: #e9e3d5;
-    line-height: 1.5;
-    min-height: 100vh;
-    padding: 2rem 1rem;
+    line-height: 1.55;
 }
 
 .container {
-    max-width: 900px;
+    width: min(1100px, 92%);
     margin: 0 auto;
 }
 
-/* Header */
-header {
-    text-align: center;
-    margin-bottom: 2rem;
-    border-bottom: 2px solid #b8860b;
-    display: inline-block;
-    width: 100%;
+.top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 4%;
+    border-bottom: 1px solid rgba(243, 201, 16, 0.18);
+    background: rgba(3, 8, 22, 0.88);
+    backdrop-filter: blur(8px);
 }
 
-h1 {
+.brand {
     font-family: 'Cinzel', serif;
-    font-size: 2.8rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #f5e7b2, #c9a53b);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    color: #f3c910;
+    font-size: 1.2rem;
 }
 
-h1 i {
-    color: #c9a53b;
-    text-shadow: none;
+.top-nav nav {
+    display: flex;
+    gap: 1.6rem;
 }
 
-.subtitle {
+.top-nav nav a {
+    font-size: 0.73rem;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    color: #99a6cb;
+    text-decoration: none;
+}
+
+.top-nav nav a.active,
+.top-nav nav a:hover {
+    color: #f3c910;
+}
+
+.btn-nav-cta {
+    background: #f3c910;
+    color: #11172b;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.55rem 1rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+}
+
+.hero {
+    position: relative;
+    min-height: 72vh;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: radial-gradient(circle at center, rgba(58, 67, 118, 0.3), transparent 50%), #030916;
+}
+
+.hero-ring {
+    position: absolute;
+    width: 820px;
+    height: 820px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(243, 201, 16, 0.28), rgba(13, 20, 44, 0.04) 45%, transparent 70%);
+    box-shadow: 0 0 120px rgba(243, 201, 16, 0.08);
+    filter: blur(2px);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 5rem 0;
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #f3c910;
+    font-size: 0.68rem;
+    margin-bottom: 1.2rem;
+}
+
+.hero h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.2rem, 7vw, 5rem);
+    line-height: 1.05;
+    max-width: 980px;
+    margin: 0 auto;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.45);
+}
+
+.hero h1 span {
+    color: #f3c910;
     font-style: italic;
-    color: #b9a87c;
-    margin-top: 0.5rem;
 }
 
-/* Character panel */
+.btn-hero {
+    display: inline-block;
+    margin-top: 2rem;
+    text-decoration: none;
+    background: #f3c910;
+    color: #121a32;
+    padding: 0.9rem 2rem;
+    border-radius: 8px;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+}
+
+.hero-scroll {
+    margin-top: 1rem;
+    font-size: 0.72rem;
+    color: #97a0bb;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.manifesto {
+    padding: 5rem 0;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+.manifesto h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    margin-bottom: 1rem;
+}
+
+.manifesto h2 span {
+    color: #43f0f0;
+}
+
+.manifesto-copy p {
+    color: #b9c3df;
+    max-width: 620px;
+}
+
+.quote {
+    margin-top: 1rem;
+    font-style: italic;
+    color: #8290b9;
+}
+
+.artifact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+    gap: 1rem;
+}
+
+.artifact-card {
+    background: rgba(20, 28, 55, 0.72);
+    border: 1px solid rgba(184, 197, 232, 0.18);
+    border-radius: 12px;
+    padding: 1rem;
+    min-height: 170px;
+}
+
+.artifact-card.featured {
+    background: linear-gradient(130deg, rgba(243, 201, 16, 0.24), rgba(21, 28, 51, 0.7));
+    border-color: rgba(243, 201, 16, 0.3);
+}
+
+.artifact-tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #43f0f0;
+    margin-bottom: 0.9rem;
+}
+
+.artifact-card h3 {
+    font-family: 'Cinzel', serif;
+    margin-bottom: 0.6rem;
+}
+
+.ritual {
+    background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+    padding: 4rem 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.ritual-inner {
+    text-align: center;
+}
+
+.ritual-icon {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 1rem;
+    border: 1px solid rgba(243, 201, 16, 0.55);
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    color: #f3c910;
+}
+
+.ritual h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.ritual p {
+    color: #bcc7e4;
+    max-width: 680px;
+    margin: 0.8rem auto 0;
+}
+
+.ritual-actions {
+    margin-top: 1.4rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.btn-secondary,
+.btn-primary {
+    text-decoration: none;
+    border-radius: 8px;
+    padding: 0.85rem 1.5rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    font-weight: 700;
+}
+
+.btn-secondary {
+    background: #2a3145;
+    border: 1px solid #45506d;
+    color: #d7deee;
+}
+
+.btn-primary {
+    background: #f3c910;
+    border: 1px solid #f3c910;
+    color: #11172b;
+}
+
+.quest-wrapper {
+    padding: 4rem 0 3.5rem;
+}
+
 .character-panel {
     background: rgba(20, 15, 25, 0.8);
     border: 1px solid #6a4e2e;
     border-radius: 16px;
     padding: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     backdrop-filter: blur(4px);
     display: flex;
     flex-wrap: wrap;
@@ -128,15 +342,13 @@ h1 i {
     color: #b9a87c;
 }
 
-/* Quest card */
 .quest-card {
     background: rgba(15, 12, 20, 0.9);
     border: 1px solid #b8860b;
     border-radius: 24px;
     padding: 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-    transition: transform 0.2s;
 }
 
 .quest-header {
@@ -171,7 +383,9 @@ h1 i {
     color: #f5e7b2;
 }
 
-.concept, .example, .origin {
+.concept,
+.example,
+.origin {
     margin-bottom: 1rem;
 }
 
@@ -197,14 +411,16 @@ h1 i {
     padding-top: 0.5rem;
 }
 
-/* Buttons */
 .quest-actions {
     display: flex;
     gap: 1rem;
     margin: 1.5rem 0 1rem;
 }
 
-.btn-complete, .btn-favorite, .tool-btn, .btn-save {
+.btn-complete,
+.btn-favorite,
+.tool-btn,
+.btn-save {
     background: none;
     border: 1px solid #c9a53b;
     padding: 0.6rem 1.2rem;
@@ -215,19 +431,19 @@ h1 i {
     font-family: inherit;
 }
 
-.btn-complete {
+.btn-complete,
+.btn-save {
     background: #c9a53b;
     color: #0a0c12;
 }
 
-.btn-complete:hover {
+.btn-complete:hover,
+.btn-save:hover {
     background: #e4c580;
     transform: scale(1.02);
-    box-shadow: 0 0 8px #c9a53b;
 }
 
 .btn-favorite {
-    background: transparent;
     color: #e4c580;
 }
 
@@ -235,10 +451,15 @@ h1 i {
     background: #e4c58020;
 }
 
+.extra-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
 .tool-btn {
     background: #2a241a;
     color: #e4c580;
-    margin-right: 0.5rem;
 }
 
 .tool-btn:hover {
@@ -252,7 +473,6 @@ h1 i {
     text-align: center;
 }
 
-/* Modals */
 .modal {
     display: none;
     position: fixed;
@@ -286,10 +506,6 @@ h1 i {
     color: #c9a53b;
 }
 
-.close:hover {
-    color: #f5e7b2;
-}
-
 #parkingLotText {
     width: 100%;
     background: #0f0c14;
@@ -299,11 +515,6 @@ h1 i {
     border-radius: 12px;
     margin: 1rem 0;
     font-family: 'Inter', monospace;
-}
-
-.btn-save {
-    background: #c9a53b;
-    color: #0a0c12;
 }
 
 #questLogList {
@@ -340,26 +551,53 @@ h1 i {
 
 footer {
     text-align: center;
-    margin-top: 3rem;
+    margin-top: 2rem;
     font-size: 0.8rem;
-    border-top: 1px solid #6a4e2e;
-    padding-top: 1.5rem;
+    border-top: 1px solid rgba(106, 78, 46, 0.7);
+    padding: 1.8rem 1rem 2rem;
     color: #b9a87c;
+    background: #020716;
 }
 
-/* Responsive */
+@media (max-width: 900px) {
+    .top-nav {
+        flex-wrap: wrap;
+        gap: 0.8rem;
+    }
+
+    .top-nav nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+    }
+
+    .manifesto {
+        grid-template-columns: 1fr;
+    }
+
+    .artifact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 700px) {
     .character-panel {
         flex-direction: column;
         align-items: flex-start;
     }
+
     .quest-header {
         flex-direction: column;
         gap: 0.5rem;
     }
-    .quest-actions {
+
+    .quest-actions,
+    .ritual-actions {
         flex-direction: column;
     }
+
     .modal-content {
         margin: 20% auto;
         padding: 1rem;
