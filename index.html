@@ -9,40 +9,93 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1><i class="fas fa-dragon"></i> Daily Quest <i class="fas fa-scroll"></i></h1>
-            <p class="subtitle">Level up your human stack – one framework at a time</p>
-        </header>
+    <header class="top-nav">
+        <div class="brand">The Shrine of Daily Quest</div>
+        <nav>
+            <a href="#archive" class="active">The Archive</a>
+            <a href="#todayQuest">Today&rsquo;s Ritual</a>
+            <a href="#progress">Ascension</a>
+            <a href="#footer">The Scribes</a>
+        </nav>
+        <a href="#todayQuest" class="btn-nav-cta">Commence Journey</a>
+    </header>
 
-        <div class="character-panel">
-            <div class="character-card">
-                <div class="avatar"><i class="fas fa-user-astronaut"></i></div>
-                <div class="stats">
-                    <div class="stat">
-                        <span class="stat-label">Level</span>
-                        <span class="stat-value" id="level">1</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-label">XP</span>
-                        <span class="stat-value" id="totalXP">0</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-label">Streak</span>
-                        <span class="stat-value" id="streak">0</span>
-                    </div>
+    <main>
+        <section class="hero" id="archive">
+            <div class="hero-ring"></div>
+            <div class="hero-content container">
+                <p class="eyebrow">Ancient Wisdom · Future Intelligence</p>
+                <h1>Human skill is leveling up.<br><span>Are you?</span></h1>
+                <a href="#todayQuest" class="btn-hero">Enter the Archive</a>
+                <p class="hero-scroll">Scroll to transmute <i class="fas fa-chevron-down"></i></p>
+            </div>
+        </section>
+
+        <section class="manifesto container">
+            <div class="manifesto-copy">
+                <h2>The 43 Wisdoms:<br><span>The Path to Human Ascension</span></h2>
+                <p>
+                    In an era of synthetic intelligence, this project trains practical human frameworks that compound over time.
+                    Every day unlocks one principle designed to sharpen thinking, decisions, communication, and execution.
+                </p>
+                <p class="quote">
+                    “Knowledge is not merely data; it is disciplined judgment applied with intention.”
+                </p>
+            </div>
+            <div class="artifact-grid">
+                <article class="artifact-card featured">
+                    <p class="artifact-tag">Artifact I</p>
+                    <h3>The Silent Observation</h3>
+                    <p>Notice reality before you optimize it.</p>
+                </article>
+                <article class="artifact-card">
+                    <p class="artifact-tag">Artifact IX</p>
+                    <h3>Digital Equilibrium</h3>
+                    <p>Balance speed with long-term clarity.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="ritual" id="todayQuest">
+            <div class="container ritual-inner">
+                <div class="ritual-icon"><i class="fas fa-scroll"></i></div>
+                <h2>Begin the Daily Quest</h2>
+                <p>Each sunrise unlocks one framework. Complete it, grow your streak, and level up your human stack.</p>
+                <div class="ritual-actions">
+                    <a href="#questPanel" class="btn-secondary">View the Manifesto</a>
+                    <a href="#questPanel" class="btn-primary">Begin Today&rsquo;s Ritual</a>
                 </div>
             </div>
-            <div class="xp-bar-container">
-                <div class="xp-bar" id="xpBar"></div>
-                <span class="xp-text" id="xpText">0 / 500 XP</span>
-            </div>
-        </div>
+        </section>
 
-        <main>
+        <section class="container quest-wrapper" id="questPanel">
+            <div class="character-panel" id="progress">
+                <div class="character-card">
+                    <div class="avatar"><i class="fas fa-user-astronaut"></i></div>
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-label">Level</span>
+                            <span class="stat-value" id="level">1</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">XP</span>
+                            <span class="stat-value" id="totalXP">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Streak</span>
+                            <span class="stat-value" id="streak">0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="xp-bar-container">
+                    <div class="xp-bar" id="xpBar"></div>
+                    <span class="xp-text" id="xpText">0 / 500 XP</span>
+                </div>
+            </div>
+
             <div class="quest-card" id="questCard">
                 <div class="quest-header">
-                    <h2><i class="fas fa-feather-alt"></i> Today’s Quest</h2>
+                    <h2><i class="fas fa-feather-alt"></i> Today&rsquo;s Quest</h2>
                     <div class="quest-category" id="questCategory"></div>
                 </div>
                 <div class="quest-content">
@@ -63,53 +116,53 @@
                 <button id="showParkingLotBtn" class="tool-btn"><i class="fas fa-parking"></i> Parking Lot</button>
                 <button id="showQuestLogBtn" class="tool-btn"><i class="fas fa-list"></i> Quest Log</button>
             </div>
+        </section>
+    </main>
 
-            <!-- Modals (same as before) -->
-            <div id="spellbookModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2><i class="fas fa-book"></i> Spellbook</h2>
-                    <p>Your favourite frameworks live here. Click the bookmark on any quest to add it.</p>
-                    <ul id="spellbookList"></ul>
-                </div>
-            </div>
+    <footer id="footer">
+        <p>“Easy choices, hard life. Hard choices, easy life.” — Jerzy Gregorek</p>
+        <p>⚔️ Level up daily. Forge your own legend. ⚔️</p>
+    </footer>
 
-            <div id="parkingLotModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2><i class="fas fa-parking"></i> Parking Lot</h2>
-                    <p>Ideas not ready yet – save them for later.</p>
-                    <textarea id="parkingLotText" rows="6" placeholder="Write your notes, ideas, or anything you want to keep..."></textarea>
-                    <button id="saveParkingLot" class="btn-save">Save</button>
-                </div>
-            </div>
-
-            <div id="questLogModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2><i class="fas fa-list"></i> Quest Log</h2>
-                    <p>All 43 frameworks – completed ones are marked.</p>
-                    <div id="questLogList"></div>
-                </div>
-            </div>
-        </main>
-
-        <footer>
-            <p>“Easy choices, hard life. Hard choices, easy life.” — Jerzy Gregorek</p>
-            <p>⚔️ Level up daily. Forge your own legend. ⚔️</p>
-        </footer>
+    <div id="spellbookModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2><i class="fas fa-book"></i> Spellbook</h2>
+            <p>Your favourite frameworks live here. Click the bookmark on any quest to add it.</p>
+            <ul id="spellbookList"></ul>
+        </div>
     </div>
-<!-- Quiz Modal -->
-<div id="quizModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2><i class="fas fa-question-circle"></i> Quiz: <span id="quizQuestName"></span></h2>
-        <div id="quizQuestion"></div>
-        <div id="quizOptions"></div>
-        <button id="submitQuiz" class="btn-complete">Submit Answer</button>
-        <div id="quizResult" style="margin-top: 1rem;"></div>
+
+    <div id="parkingLotModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2><i class="fas fa-parking"></i> Parking Lot</h2>
+            <p>Ideas not ready yet – save them for later.</p>
+            <textarea id="parkingLotText" rows="6" placeholder="Write your notes, ideas, or anything you want to keep..."></textarea>
+            <button id="saveParkingLot" class="btn-save">Save</button>
+        </div>
     </div>
-</div>
+
+    <div id="questLogModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2><i class="fas fa-list"></i> Quest Log</h2>
+            <p>All 43 frameworks – completed ones are marked.</p>
+            <div id="questLogList"></div>
+        </div>
+    </div>
+
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2><i class="fas fa-question-circle"></i> Quiz: <span id="quizQuestName"></span></h2>
+            <div id="quizQuestion"></div>
+            <div id="quizOptions"></div>
+            <button id="submitQuiz" class="btn-complete">Submit Answer</button>
+            <div id="quizResult" style="margin-top: 1rem;"></div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
