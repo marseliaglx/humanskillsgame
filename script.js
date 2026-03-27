@@ -45,25 +45,29 @@ const quests = [
     { id: 43, name: "The Work-Sharing Buddy", category: "Career", concept: "Use a trusted peer to review before stakeholders.", example: "Catch flaws before executive review.", origin: "General", xp: 50 }
 ];
 
-const state = {
+let state = {
+    completedQuests: [],
     totalXP: 0,
     streak: 0,
-    completedQuests: [],
-    lastCompletionDate: null
+    lastCompletionDate: null,
+    spellbook: [],
+    parkingLot: ""
 };
 
-let selectedOptionIndex = null;
-let trial = null;
+let activeTrial = null;
 
 function loadState() {
-    const saved = localStorage.getItem("dailyQuestStateV2");
-    if (!saved) return;
-    try {
-        const parsed = JSON.parse(saved);
-        Object.assign(state, parsed);
-    } catch (e) {
-        console.error("Failed to parse state", e);
+    const saved = localStorage.getItem("dailyQuestState");
+    if (saved) {
+        try {
+            state = { ...state, ...JSON.parse(saved) };
+        } catch (e) {
+            console.error(e);
+        }
     }
+    if (!state.completedQuests) state.completedQuests = [];
+    if (!state.spellbook) state.spellbook = [];
+    if (state.parkingLot === undefined) state.parkingLot = "";
 }
 
 function saveState() {
@@ -76,126 +80,272 @@ function todayString() {
 
 function getTodaysQuest() {
     const now = new Date();
-    const yearStart = new Date(now.getFullYear(), 0, 0);
-    const dayOfYear = Math.floor((now - yearStart) / 86400000);
+    const start = new Date(now.getFullYear(), 0, 0);
+    const dayOfYear = Math.floor((now - start) / 86400000);
     return quests[dayOfYear % quests.length];
 }
 
-function alreadyCompletedToday(questId) {
-    return state.completedQuests.some((q) => q.id === questId && q.date === todayString());
+function isQuestCompletedToday(questId) {
+    const today = todayString();
+    return state.completedQuests.some((q) => q.id === questId && q.date === today);
 }
 
-function updateProgress(quest) {
-    if (alreadyCompletedToday(quest.id)) return;
+function completeQuest(quest) {
+    if (isQuestCompletedToday(quest.id)) {
+        showMessage("You've already completed today's quest! Come back tomorrow.", "warning");
+        return false;
+    }
 
     state.totalXP += quest.xp;
     state.completedQuests.push({ id: quest.id, date: todayString() });
 
-    if (!state.lastCompletionDate) {
+    const today = todayString();
+    if (state.lastCompletionDate === null) {
         state.streak = 1;
     } else {
-        const days = (new Date(todayString()) - new Date(state.lastCompletionDate)) / 86400000;
-        state.streak = days === 1 ? state.streak + 1 : 1;
+        const last = new Date(state.lastCompletionDate);
+        const diffDays = (new Date(today) - last) / (1000 * 60 * 60 * 24);
+        if (diffDays === 1) state.streak++;
+        else if (diffDays > 1) state.streak = 1;
     }
-    state.lastCompletionDate = todayString();
+
+    state.lastCompletionDate = today;
     saveState();
+    showMessage(`Quest completed! +${quest.xp} XP. Streak: ${state.streak} days.`, "success");
+    return true;
+}
+
+function updateUI() {
+    const level = Math.floor(state.totalXP / 500) + 1;
+    document.getElementById("level").innerText = level;
+    document.getElementById("totalXP").innerText = state.totalXP;
+    document.getElementById("streak").innerText = state.streak;
+
+    const xpInCurrent = state.totalXP % 500;
+    document.getElementById("xpBar").style.width = `${(xpInCurrent / 500) * 100}%`;
+    document.getElementById("xpText").innerText = `${xpInCurrent} / 500 XP`;
+
+    const quest = getTodaysQuest();
+    const completedToday = isQuestCompletedToday(quest.id);
+    const completeBtn = document.getElementById("completeBtn");
+    completeBtn.disabled = false;
+    completeBtn.innerText = completedToday ? "Completed Today" : "Jump to Trial";
+}
+
+function showMessage(msg, type = "info") {
+    const msgDiv = document.getElementById("completionMessage");
+    if (!msgDiv) return;
+    msgDiv.innerText = msg;
+    msgDiv.style.color = type === "success" ? "#e9c400" : "#dfe2ee";
+    setTimeout(() => {
+        msgDiv.innerText = "";
+    }, 3500);
+}
+
+function shuffle(arr) {
+    const copy = [...arr];
+    for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
 }
 
 function buildTrial(quest) {
-    const correct = `It provides the minimum structure needed to form a recognizable pattern, just like ${quest.name}.`;
-    const options = [
+    const correct = `Because ${quest.concept.toLowerCase()}`;
+    const options = shuffle([
         correct,
-        "It is always the mathematically most beautiful number.",
-        "It simply signals that any list has ended."
-    ];
+        "Because speed is always more important than clarity.",
+        "Because every problem has one fixed answer regardless of context."
+    ]);
 
-    trial = {
-        question: `Why is the third element critical in ${quest.name}?`,
+    activeTrial = {
+        questId: quest.id,
+        question: `Which statement best captures the purpose of “${quest.name}”?`,
         options,
-        correctIndex: 0
+        correctIndex: options.indexOf(correct)
     };
 }
 
-function renderPage() {
-    const quest = getTodaysQuest();
-    buildTrial(quest);
+function renderWisdomJourney(quest) {
+    document.getElementById("questHeroCategory").innerText = `${quest.category.toUpperCase()} • ${todayString()}`;
+    document.getElementById("questHeroName").innerText = quest.name;
+    document.getElementById("questHeroConcept").innerText = quest.concept;
 
-    document.title = `${quest.name} | The Shrine of Knowledge`;
-    document.getElementById("patternCode").innerText = `Cognitive Patterns // ${String(quest.id).padStart(3, "0")}`;
+    document.getElementById("essenceBody").innerText = `${quest.concept} In practice: ${quest.example}`;
+    document.getElementById("patternName").innerText = quest.name;
+    document.getElementById("patternQuote").innerText = `“${quest.example}”`;
 
-    const words = quest.name.split(" ");
-    document.getElementById("wisdomTitleMain").innerText = words.slice(0, -1).join(" ") || quest.name;
-    document.getElementById("wisdomTitleAccent").innerText = words.length > 1 ? words[words.length - 1] : quest.name;
-
-    document.getElementById("wisdomIntro").innerText = `${quest.concept} This pattern sharpens clarity and retention in high-stakes thinking.`;
-    document.getElementById("essenceParagraphOne").innerText = `The essence of ${quest.name} is simple: ${quest.concept}`;
-    document.getElementById("essenceParagraphTwo").innerText = `In practice, this looks like: ${quest.example}`;
-    document.getElementById("latinQuoteTitle").innerText = quest.name;
-    document.getElementById("latinQuoteBody").innerText = `“${quest.example}”`;
-    document.getElementById("originNarrative").innerText = `${quest.name} is linked to ${quest.origin}. Use it as a pattern for practical judgment rather than abstract theory.`;
+    document.getElementById("originBody").innerText = `${quest.name} is commonly linked to ${quest.origin}. Use it as a cognitive checkpoint before you commit action.`;
 
     const practiceCards = document.getElementById("practiceCards");
     practiceCards.innerHTML = "";
     [
-        { icon: "grid_view", title: "Visual Design", body: `Represent ${quest.name} as a visible pattern in your next document.` },
-        { icon: "auto_stories", title: "Narrative Structure", body: `Use ${quest.name} to structure your next update into memorable arcs.` },
-        { icon: "psychology", title: "Logical Syllogism", body: `Apply ${quest.name} as a decision checkpoint before finalizing your choice.` }
-    ].forEach((card) => {
-        const el = document.createElement("article");
-        el.className = "bg-surface-container p-10 transition-all duration-500 hover:bg-surface-container-high border-b-2 border-transparent hover:border-primary";
-        el.innerHTML = `<span class=\"material-symbols-outlined text-secondary text-4xl mb-6\">${card.icon}</span><h3 class=\"font-serif text-2xl mb-4\">${card.title}</h3><p class=\"text-on-surface-variant text-sm leading-loose\">${card.body}</p>`;
-        practiceCards.appendChild(el);
+        { title: "Visual Decision", text: `Turn this principle into one slide for your team this week.` },
+        { title: "Narrative Structure", text: `Use ${quest.name} in your next update or pitch.` },
+        { title: "Logical Validation", text: `Run one important choice through this lens before acting.` }
+    ].forEach((item) => {
+        const card = document.createElement("article");
+        card.className = "bg-surface-container-low border border-slate-700 rounded-xl p-6";
+        card.innerHTML = `<h3 class=\"font-headline text-2xl mb-3\">${item.title}</h3><p class=\"text-on-surface-variant\">${item.text}</p>`;
+        practiceCards.appendChild(card);
     });
-
-    document.getElementById("trialQuestion").innerText = trial.question;
-    const trialOptions = document.getElementById("trialOptions");
-    trialOptions.innerHTML = "";
-    ["A", "B", "C"].forEach((letter, idx) => {
-        const button = document.createElement("button");
-        button.className = "trial-option w-full p-6 text-left border border-white/10 hover:border-primary transition-colors flex items-center gap-6";
-        button.dataset.index = String(idx);
-        button.innerHTML = `<span class=\"w-8 h-8 rounded-full border border-white/20 flex items-center justify-center font-mono text-xs\">${letter}</span><span class=\"text-on-surface-variant font-light\">${trial.options[idx]}</span>`;
-        button.addEventListener("click", () => {
-            selectedOptionIndex = idx;
-            document.querySelectorAll(".trial-option").forEach((n) => n.classList.remove("selected"));
-            button.classList.add("selected");
-            handleTrialAnswer(idx);
-        });
-        trialOptions.appendChild(button);
-    });
-
-    const feedback = document.getElementById("trialFeedback");
-    feedback.innerText = alreadyCompletedToday(quest.id)
-        ? "already completed today"
-        : "select the best answer";
 }
 
-function handleTrialAnswer(index) {
+function renderTrial(quest) {
+    const completedToday = isQuestCompletedToday(quest.id);
+    if (!activeTrial || activeTrial.questId !== quest.id) {
+        buildTrial(quest);
+    }
+
+    document.getElementById("trialQuestion").innerText = activeTrial.question;
+    const optionsDiv = document.getElementById("trialOptions");
+    optionsDiv.innerHTML = "";
+
+    activeTrial.options.forEach((opt, idx) => {
+        const label = document.createElement("label");
+        label.className = "trial-option";
+        label.innerHTML = `<input type=\"radio\" name=\"trialOption\" value=\"${idx}\" ${completedToday ? "disabled" : ""}/> <span>${opt}</span>`;
+        optionsDiv.appendChild(label);
+    });
+
+    const submit = document.getElementById("submitTrialBtn");
+    submit.disabled = completedToday;
+    submit.innerText = completedToday ? "Quest already completed today" : "Complete Quest & Claim XP ✨";
+    document.getElementById("trialFeedback").innerText = completedToday ? "You already completed this trial today. Return tomorrow for a new wisdom." : "";
+}
+
+function renderQuest() {
     const quest = getTodaysQuest();
-    const feedback = document.getElementById("trialFeedback");
 
-    if (alreadyCompletedToday(quest.id)) {
-        feedback.innerText = "already completed today";
+    document.getElementById("questCategory").innerText = quest.category;
+    document.getElementById("questName").innerText = quest.name;
+    document.getElementById("concept").innerHTML = `<strong>🧠 Concept:</strong> ${quest.concept}`;
+    document.getElementById("example").innerHTML = `<strong>📖 Example:</strong> ${quest.example}`;
+    document.getElementById("origin").innerHTML = `<strong>🏛️ Origin:</strong> ${quest.origin}`;
+
+    const favBtn = document.getElementById("favoriteBtn");
+    if (state.spellbook.includes(quest.id)) {
+        favBtn.innerHTML = "In Spellbook";
+        favBtn.style.opacity = "0.7";
+    } else {
+        favBtn.innerHTML = "Add to Spellbook";
+        favBtn.style.opacity = "1";
+    }
+
+    renderWisdomJourney(quest);
+    renderTrial(quest);
+    updateUI();
+}
+
+function toggleSpellbook() {
+    const quest = getTodaysQuest();
+    if (state.spellbook.includes(quest.id)) {
+        state.spellbook = state.spellbook.filter((id) => id !== quest.id);
+        showMessage(`Removed "${quest.name}" from spellbook.`);
+    } else {
+        state.spellbook.push(quest.id);
+        showMessage(`Added "${quest.name}" to your spellbook!`, "success");
+    }
+    saveState();
+    renderQuest();
+}
+
+function renderSpellbook() {
+    const list = document.getElementById("spellbookList");
+    list.innerHTML = "";
+    const bookmarked = quests.filter((q) => state.spellbook.includes(q.id));
+    if (bookmarked.length === 0) {
+        list.innerHTML = "<li>Your spellbook is empty. Add frameworks you love!</li>";
+    } else {
+        bookmarked.forEach((q) => {
+            const li = document.createElement("li");
+            li.innerHTML = `<span><strong>${q.name}</strong> – ${q.category}</span><span>⭐</span>`;
+            list.appendChild(li);
+        });
+    }
+
+function renderQuestLog() {
+    const container = document.getElementById("questLogList");
+    container.innerHTML = "";
+    quests.forEach((q) => {
+        const completed = state.completedQuests.some((c) => c.id === q.id);
+        const div = document.createElement("div");
+        div.className = "quest-log-item" + (completed ? " completed" : "");
+        div.innerHTML = `<span><strong>${q.name}</strong> (${q.category})</span><span>${completed ? "✅ Completed" : "❌ Not yet"}</span>`;
+        container.appendChild(div);
+    });
+}
+
+function openModal(modalId) {
+    document.getElementById(modalId).style.display = "block";
+}
+
+function closeModals() {
+    document.querySelectorAll(".modal").forEach((m) => (m.style.display = "none"));
+}
+
+function handleTrialSubmit() {
+    const quest = getTodaysQuest();
+    if (isQuestCompletedToday(quest.id)) {
+        document.getElementById("trialFeedback").innerText = "Already completed today. Come back tomorrow.";
         return;
     }
 
-    if (index !== trial.correctIndex) {
-        feedback.innerText = "not quite — reread the essence and try again";
+    const checked = document.querySelector("input[name='trialOption']:checked");
+    if (!checked) {
+        document.getElementById("trialFeedback").innerText = "Select one answer to continue.";
         return;
     }
 
-    updateProgress(quest);
-    feedback.innerText = `wisdom integrated • +${quest.xp} xp`;
+    const selected = Number(checked.value);
+    if (selected === activeTrial.correctIndex) {
+        document.getElementById("trialFeedback").innerText = "Correct. Wisdom integrated.";
+        if (completeQuest(quest)) {
+            renderQuest();
+        }
+    } else {
+        document.getElementById("trialFeedback").innerText = "Not quite. Re-read the essence and try again.";
+    }
 }
 
 function init() {
     loadState();
     renderPage();
 
-    document.getElementById("scrollToTrialBtn").addEventListener("click", () => {
+    document.getElementById("completeBtn").addEventListener("click", () => {
         document.getElementById("trialSection").scrollIntoView({ behavior: "smooth" });
     });
 
+    document.getElementById("submitTrialBtn").addEventListener("click", handleTrialSubmit);
+    document.getElementById("favoriteBtn").addEventListener("click", toggleSpellbook);
+
+    document.getElementById("showSpellbookBtn").addEventListener("click", () => {
+        renderSpellbook();
+        openModal("spellbookModal");
+    });
+
+    document.getElementById("showParkingLotBtn").addEventListener("click", () => {
+        document.getElementById("parkingLotText").value = state.parkingLot;
+        openModal("parkingLotModal");
+    });
+
+    document.getElementById("showQuestLogBtn").addEventListener("click", () => {
+        renderQuestLog();
+        openModal("questLogModal");
+    });
+
+    document.querySelectorAll(".close").forEach((btn) => btn.addEventListener("click", closeModals));
+    window.addEventListener("click", (e) => {
+        if (e.target.classList.contains("modal")) closeModals();
+    });
+
+    document.getElementById("saveParkingLot").addEventListener("click", () => {
+        state.parkingLot = document.getElementById("parkingLotText").value;
+        saveState();
+        showMessage("Parking Lot saved!", "success");
+        closeModals();
+    });
 }
 
 init();
