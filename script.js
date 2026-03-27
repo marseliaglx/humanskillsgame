@@ -85,8 +85,7 @@ function saveState() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
-function todayString() {
-    return new Date().toISOString().slice(0, 10);
+    requestAnimationFrame(tick);
 }
 
 function getRandomQuest(excludeId = null) {
