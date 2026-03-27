@@ -1,115 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Quest – Level Up Your Human Skills</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Rule of Three | The Shrine of Knowledge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Manrope:wght@300;400;600&family=Space+Grotesk:wght@300;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "on-surface-variant": "#c6c6cb",
+                "secondary": "#46eaed",
+                "surface": "#0f131c",
+                "surface-container-low": "#181c24",
+                "surface-container": "#1c2028",
+                "surface-container-high": "#262a33",
+                "surface-container-highest": "#31353e",
+                "outline-variant": "#45474b",
+                "primary": "#e9c400",
+                "on-primary": "#3a3000",
+                "on-surface": "#dfe2ee",
+                "surface-container-lowest": "#0a0e16",
+                "primary-container": "#161000",
+                "on-primary-container": "#937b00"
+              },
+              fontFamily: {
+                "headline": ["Noto Serif"],
+                "body": ["Manrope"],
+                "label": ["Space Grotesk"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { font-family: 'Manrope', sans-serif; background-color: #0f131c; color: #dfe2ee; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .font-mono { font-family: 'Space Grotesk', sans-serif; }
+    </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1><i class="fas fa-dragon"></i> Daily Quest <i class="fas fa-scroll"></i></h1>
-            <p class="subtitle">Level up your human stack – one framework at a time</p>
-        </header>
-
-        <div class="character-panel">
-            <div class="character-card">
-                <div class="avatar"><i class="fas fa-user-astronaut"></i></div>
-                <div class="stats">
-                    <div class="stat">
-                        <span class="stat-label">Level</span>
-                        <span class="stat-value" id="level">1</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-label">XP</span>
-                        <span class="stat-value" id="totalXP">0</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-label">Streak</span>
-                        <span class="stat-value" id="streak">0</span>
-                    </div>
-                </div>
-            </div>
-            <div class="xp-bar-container">
-                <div class="xp-bar" id="xpBar"></div>
-                <span class="xp-text" id="xpText">0 / 500 XP</span>
-            </div>
-        </div>
-
-        <main>
-            <div class="quest-card" id="questCard">
-                <div class="quest-header">
-                    <h2><i class="fas fa-feather-alt"></i> Today’s Quest</h2>
-                    <div class="quest-category" id="questCategory"></div>
-                </div>
-                <div class="quest-content">
-                    <h3 id="questName"></h3>
-                    <div class="concept" id="concept"></div>
-                    <div class="example" id="example"></div>
-                    <div class="origin" id="origin"></div>
-                </div>
-                <div class="quest-actions">
-                    <button id="completeBtn" class="btn-complete"><i class="fas fa-check-circle"></i> Complete Quest</button>
-                    <button id="favoriteBtn" class="btn-favorite"><i class="fas fa-bookmark"></i> Add to Spellbook</button>
-                </div>
-                <div id="completionMessage" class="completion-message"></div>
-            </div>
-
-            <div class="extra-tools">
-                <button id="showSpellbookBtn" class="tool-btn"><i class="fas fa-book"></i> Spellbook</button>
-                <button id="showParkingLotBtn" class="tool-btn"><i class="fas fa-parking"></i> Parking Lot</button>
-                <button id="showQuestLogBtn" class="tool-btn"><i class="fas fa-list"></i> Quest Log</button>
-            </div>
-
-            <!-- Modals (same as before) -->
-            <div id="spellbookModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2><i class="fas fa-book"></i> Spellbook</h2>
-                    <p>Your favourite frameworks live here. Click the bookmark on any quest to add it.</p>
-                    <ul id="spellbookList"></ul>
-                </div>
-            </div>
-
-            <div id="parkingLotModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2><i class="fas fa-parking"></i> Parking Lot</h2>
-                    <p>Ideas not ready yet – save them for later.</p>
-                    <textarea id="parkingLotText" rows="6" placeholder="Write your notes, ideas, or anything you want to keep..."></textarea>
-                    <button id="saveParkingLot" class="btn-save">Save</button>
-                </div>
-            </div>
-
-            <div id="questLogModal" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2><i class="fas fa-list"></i> Quest Log</h2>
-                    <p>All 43 frameworks – completed ones are marked.</p>
-                    <div id="questLogList"></div>
-                </div>
-            </div>
-        </main>
-
-        <footer>
-            <p>“Easy choices, hard life. Hard choices, easy life.” — Jerzy Gregorek</p>
-            <p>⚔️ Level up daily. Forge your own legend. ⚔️</p>
-        </footer>
-    </div>
-<!-- Quiz Modal -->
-<div id="quizModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2><i class="fas fa-question-circle"></i> Quiz: <span id="quizQuestName"></span></h2>
-        <div id="quizQuestion"></div>
-        <div id="quizOptions"></div>
-        <button id="submitQuiz" class="btn-complete">Submit Answer</button>
-        <div id="quizResult" style="margin-top: 1rem;"></div>
-    </div>
+<body class="bg-surface text-on-surface selection:bg-primary/30 selection:text-primary">
+<nav class="fixed top-0 w-full z-50 bg-[#0f131c]/70 backdrop-blur-md shadow-2xl shadow-[#0a0e16]/40 transition-all duration-700 ease-in-out">
+<div class="flex justify-between items-center px-6 md:px-12 py-6 w-full max-w-[1920px] mx-auto">
+<div class="text-2xl font-serif text-[#e9c400] italic tracking-tighter">The Shrine of Knowledge</div>
+<div class="hidden md:flex items-center gap-12 font-['Noto_Serif'] font-medium tracking-wide uppercase text-xs">
+<a class="text-slate-400 hover:text-[#e9c400] transition-colors duration-500" href="#heroSection">The Archive</a>
+<a class="text-[#e9c400] border-b border-[#e9c400] pb-1" href="#essenceSection">The Ascension</a>
+<a class="text-slate-400 hover:text-[#e9c400] transition-colors duration-500" href="#trialSection">The Portal</a>
 </div>
-    <script src="script.js"></script>
-</body>
-</html>
+<div class="flex items-center gap-6">
+<button id="scrollToTrialBtn" class="bg-primary-container text-on-primary-container px-4 md:px-6 py-2 font-mono text-[10px] uppercase tracking-widest border border-primary/20 hover:shadow-[0_0_20px_rgba(233,196,0,0.15)] transition-all duration-300">Enter the Shrine</button>
+</div>
+</div>
+<div class="bg-gradient-to-b from-[#181c24] to-transparent h-px w-full absolute bottom-0"></div>
+</nav>
+
+<main class="pt-32 pb-24">
+<section id="heroSection" class="relative min-h-[819px] flex flex-col justify-center px-6 md:px-12 lg:px-24 mb-32 overflow-hidden">
+<div class="absolute inset-0 z-0 opacity-40">
+<img class="w-full h-full object-cover" alt="abstract geometric sculpture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDitP0ssQhSpdWnEOKXrW2jsxP_crHVu5WECDriM7lIPdmz65iL9LYYXYUl9rcCQIH-9_SKbjmoXuxMmApZIU8OrR6PZSzDKyrUlJND6L3ySqfvbGZteX4qDdNi-uJvhz75TwGIregVjk_KktPA6KMPVhrm49y6wAgBpEBbGB_M81qQplY1PvnPXdipiJ7f29w7YisDPelw0ybk54QPbpwYNK735LItTNkGOebiDIQKVo0VHZHsUYEIAKWDLjMOKg_bemgAlEIekg-M"/>
+<div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/80 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-4xl">
+<span id="patternCode" class="font-mono text-secondary text-xs uppercase tracking-[0.4em] mb-4 block">Cognitive Patterns // 003</span>
+<h1 class="text-6xl md:text-7xl lg:text-9xl font-serif text-on-surface leading-tight mb-8"><span id="wisdomTitleMain">The Rule</span><br/> <span id="wisdomTitleAccent" class="italic text-primary">of Three</span></h1>
+<p id="wisdomIntro" class="text-xl lg:text-2xl font-light text-on-surface-variant max-w-2xl leading-relaxed"></p>
+</div>
+</section>
+
+<section id="essenceSection" class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 mb-40">
+<div class="grid lg:grid-cols-12 gap-14 lg:gap-24 items-start">
+<div class="lg:col-span-7">
+<h2 class="font-serif text-4xl mb-12 text-on-surface flex items-center gap-4"><span class="text-primary opacity-20 text-6xl">01</span> The Essence</h2>
+<div class="space-y-8 text-lg leading-loose text-on-surface-variant font-light">
+<p id="essenceParagraphOne"></p>
+<p id="essenceParagraphTwo"></p>
+</div>
+</div>
+<div class="lg:col-span-5 pt-12">
+<div class="bg-surface-container p-12 relative overflow-hidden">
+<h3 id="latinQuoteTitle" class="font-serif italic text-3xl text-primary mb-6"></h3>
+<p class="font-mono text-xs uppercase tracking-widest text-slate-500 mb-8">— Daily Framework</p>
+<p id="latinQuoteBody" class="text-on-surface italic text-lg leading-relaxed"></p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="bg-surface-container-low py-24 mb-40">
+<div class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24">
+<div class="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+<div class="w-full lg:w-1/2 order-2 lg:order-1"><img class="w-full grayscale opacity-60 rounded-md" alt="ancient philosopher" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA68IZgmZoebVDO9cfLogS_ECEj3SzL14qimySAtzvRrzo3LbaFl1O5fHgrpLdCEaXy572czAf5hIQpjNFraJfcAxOWiiYp8UwCjTA4U3vpBQTjN9RY3k4LBkVecPrd55iJGJrjyYPP-dbYH4Khwf0mDMvHI75ML7ch8v-XEF45xwcs1MGuOSd-M7oUej14k13gA_WgTjvfpgZeYKlrTuNyaNeiIeJMkfXDKBroJ_ZIPVbzxp6cYTGRBGrYwBf1L8ctyUpXnuliEcQs"/></div>
+<div class="w-full lg:w-1/2 order-1 lg:order-2">
+<h2 class="font-serif text-4xl mb-12 text-on-surface flex items-center gap-4"><span class="text-primary opacity-20 text-6xl">02</span> The Origin</h2>
+<p id="originNarrative" class="text-on-surface-variant leading-relaxed"></p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-24 mb-40">
+<h2 class="font-serif text-4xl mb-16 text-center">Manifestations in <span class="text-primary italic">Practice</span></h2>
+<div class="grid lg:grid-cols-3 gap-8" id="practiceCards"></div>
+</section>
+
+<section id="trialSection" class="max-w-4xl mx-auto px-6 md:px-12 mb-40 text-center">
+<div class="mb-16"><span class="font-mono text-primary text-xs uppercase tracking-[0.5em] mb-4 block">Final Trial</span><h2 class="font-serif text-5xl">The Trial of Understanding</h2></div>
+<div class="bg-surface-container-low p-8 md:p-12 border border-white/5">
+<p id="trialQuestion" class="text-2xl font-serif mb-8"></p>
+<div class="space-y-4" id="trialOptions"></div>
+</div>
+<div class="mt-10">
+<p id="trialFeedback" class="font-mono text-[11px] uppercase tracking-widest text-slate-500 mt-6"></p>
+</div>
+</section>
+</main>
+
+<footer class="bg-[#0f131c] w-full border-t border-white/5" id="scribes"><div class="max-w-7xl mx-auto py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-8"><div class="font-serif text-[#e9c400] text-lg">The Shrine of Knowledge</div><div class="font-['Manrope'] text-[10px] uppercase tracking-[0.2em] text-slate-500 text-center md:text-right">© 2026 The Shrine of Knowledge.</div></div></footer>
+<script src="script.js"></script>
+</body></html>
