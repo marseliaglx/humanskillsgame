@@ -151,7 +151,8 @@
 .btn-complete,
 .btn-favorite,
 .tool-btn,
-.btn-save {
+.btn-save,
+.btn-download {
     background: none;
     border: 1px solid #c9a53b;
     padding: 0.6rem 1.2rem;
@@ -182,6 +183,73 @@
 .btn-save {
     background: #e9c400;
     color: #3a3000;
+}
+
+.btn-download {
+    background: transparent;
+    color: #9de8ff;
+    border-color: rgba(70, 234, 237, 0.45);
+    transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.3s ease;
+}
+
+.btn-download:hover {
+    box-shadow: 0 0 18px rgba(70, 234, 237, 0.2);
+}
+
+.hidden {
+    display: none;
+}
+
+.trial-option-btn {
+    width: 100%;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(24, 28, 36, 0.75);
+    color: #dfe2ee;
+    border-radius: 12px;
+    padding: 0.95rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.trial-option-btn:hover {
+    border-color: rgba(233, 196, 0, 0.5);
+}
+
+.trial-option-btn.wrong {
+    border-color: #ff6d6d;
+    color: #ffbdbd;
+}
+
+.trial-option-btn.correct {
+    border-color: #42e394;
+    color: #b7ffd8;
+    box-shadow: 0 0 18px rgba(66, 227, 148, 0.25);
+}
+
+.trial-option-btn:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+
+.shake {
+    animation: shakeX 0.3s ease;
+}
+
+@keyframes shakeX {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    50% { transform: translateX(8px); }
+    75% { transform: translateX(-6px); }
+    100% { transform: translateX(0); }
+}
+
+.content-fade-in {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.content-fade-out {
+    opacity: 0.12;
 }
 
 .extra-tools {
