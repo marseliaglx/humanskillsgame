@@ -1,150 +1,379 @@
-const frameworksData = [
-    { id: 1, title: "Inversion", quote: "Ask how to guarantee failure, then avoid those things.", description: "<p>Instead of asking 'How do I achieve my goal?', ask <strong>'How would I guarantee failure?'</strong></p><p>For example, if you are designing employee onboarding, a direct approach produces vague ideas like 'good training'. If you invert it—'What would make onboarding terrible?'—you get concrete answers: No laptop on day one, no team introductions, and a three-hour compliance lecture. Once you identify the exact steps that lead to ruin, your primary job is simply to avoid doing them.</p>", takeaway: "Map out the path to absolute failure, then simply don't walk it.", quizQuestion: "When applying Inversion to 'eating healthier', what do you ask?", options: ["What are the best superfoods?", "How can I guarantee my diet fails completely?", "Who is the best nutritionist?", "What is the exact macro ratio?"], correctAnswer: 1 },
-    { id: 2, title: "Second-Order Thinking", quote: "Ask 'and then what?' to see consequences behind consequences.", description: "<p>First-order thinking solves the immediate problem. Second-order thinking looks at the ripple effects.</p><p>For instance, cutting a company's training budget saves money today (first-order consequence). However, it causes massive employee turnover, critical errors, and burnout tomorrow (second-order consequence). Failing to ask 'And then what?' means you trade a short-term win for a long-term catastrophe.</p>", takeaway: "Never solve a problem today by creating a bigger one tomorrow.", quizQuestion: "Which scenario best demonstrates a failure of Second-Order Thinking?", options: ["Planning chess moves 5 steps ahead.", "Taking a painkiller that cures a headache but causes ulcers later.", "Saving money by bringing lunch.", "Investing in a long-term fund."], correctAnswer: 1 },
-    { id: 3, title: "The Map Is Not the Territory", quote: "Every model is a simplification. Go see the real thing.", description: "<p>Dashboards, org charts, and process documents are just maps. They are simplifications of reality designed to be useful, but they are not reality itself.</p><p>If a dashboard says '94% success' but users are constantly complaining and bypassing your system, the map is wrong. When the map and the territory disagree, you must always trust the territory.</p>", takeaway: "Always trust the territory (reality) over the map.", quizQuestion: "If a metric shows 99% satisfaction, but social media is full of complaints, what should you do?", options: ["Celebrate the 99% score.", "Assume the complaints are fake.", "Investigate the real-world complaints.", "Fire the analytics team."], correctAnswer: 2 },
-    { id: 4, title: "Hanlon’s Razor", quote: "Don’t assume malice when neglect is the likelier explanation.", description: "<p>When someone ignores your email or makes a mistake, our brains instinctively assume they did it on purpose to hurt us. Hanlon's Razor stops this defensive escalation.</p><p>It reminds us that it is far more likely the other person was just distracted, overwhelmed, or careless. Assuming incompetence or exhaustion before you assume evil intent prevents unnecessary conflict.</p>", takeaway: "Assume incompetence or exhaustion before you assume evil intent.", quizQuestion: "A coworker hasn't replied to a crucial message. Applying Hanlon's Razor, you assume:", options: ["They are sabotaging you.", "They missed it in a flooded inbox.", "They secretly dislike you.", "They are mocking you."], correctAnswer: 1 },
-    { id: 5, title: "The Empty Boat", quote: "Most workplace friction has no villain.", description: "<p>Originating from Taoist philosophy, this parable describes a man crossing a river. Another boat violently collides with his. If he sees the boat is empty, he stays calm. But if he sees a person steering it, he erupts in fury.</p><p>The collision is identical; the anger comes entirely from assuming intent. Treat workplace mishaps like empty boats to maintain your peace of mind.</p>", takeaway: "Treat workplace mishaps like empty boats.", quizQuestion: "What is the core lesson of the Empty Boat parable?", options: ["Wear a lifejacket.", "Anger stems from assuming intent to harm.", "Nature is unpredictable.", "Never trust other teams."], correctAnswer: 1 },
-    { id: 6, title: "The Cobra Effect", quote: "Good intentions + wrong incentives = worse problems.", description: "<p>During British colonial rule in India, the government offered a bounty for dead cobras to reduce the population. The result? Enterprising locals started breeding cobras.</p><p>When the bounty ended, breeders released the snakes, worsening the original problem. Before implementing any metric or rule, always ask: 'How could a rational person game this incentive?'</p>", takeaway: "People optimize for the reward, not the intention behind it.", quizQuestion: "You offer testers $10 per bug found, and devs $10 per bug fixed. What happens?", options: ["Perfectly bug-free software.", "They collaborate to create and fix fake bugs.", "Immediate bankruptcy.", "Everyone quits."], correctAnswer: 1 },
-    { id: 7, title: "Goodhart’s Law", quote: "When a measure becomes a target, it stops being a good measure.", description: "<p>This is the theoretical engine behind the Cobra Effect. Metrics are fantastic diagnostic instruments, but the moment you tie strict goals to a single number, people will optimize for the number at the expense of reality.</p><p>If you measure a team strictly by 'articles published', they will publish garbage just to hit the number. Metrics must be balanced to prevent gaming.</p>", takeaway: "Use metrics as diagnostics, not sole targets.", quizQuestion: "If teacher salaries are tied strictly to standardized tests, what happens?", options: ["Students become polymaths.", "Teachers only 'teach to the test'.", "Scores drop completely.", "Perfect global rankings."], correctAnswer: 1 },
-    { id: 8, title: "The Decision Journal", quote: "Track decisions, reasoning, and outcomes. Review quarterly.", description: "<p>Human memory is flawed by hindsight bias. We trick ourselves into thinking we 'knew it all along' when things go wrong.</p><p>To combat this, write down exactly why you made a decision and your confidence level in the moment. Six months later, review it. This separates bad decisions from bad luck.</p>", takeaway: "Separate bad decisions from bad luck.", quizQuestion: "What is the primary benefit of a Decision Journal?", options: ["It looks good to managers.", "It defeats hindsight bias.", "It replaces the need for data.", "It guarantees success."], correctAnswer: 1 },
-    { id: 9, title: "Fear-Setting", quote: "Define worst fears, prevention, and recovery plans.", description: "<p>Instead of setting goals, define your worst-case scenarios for a scary decision. Write down exactly what the nightmare looks like.</p><p>Next, figure out how to prevent it, and exactly how you would recover if it happened. You will usually find the 'nightmare' is highly survivable and temporary.</p>", takeaway: "The 'nightmare' scenario is usually highly survivable.", quizQuestion: "What are the three steps of Fear-Setting?", options: ["Ignore, Deny, Forget.", "Define, Prevent, Repair.", "Plan, Execute, Analyze.", "Dream, Believe, Achieve."], correctAnswer: 1 },
-    { id: 10, title: "Pre-mortem", quote: "Imagine the project failed. Write down what went wrong.", description: "<p>Before launching a project, gather the team and assume the project was a total disaster. Ask everyone: 'What caused it?'</p><p>This simple exercise gives people psychological permission to voice hidden concerns and point out flaws before they become actual, expensive problems.</p>", takeaway: "Solve the failure before it actually happens.", quizQuestion: "When should a Pre-mortem be conducted?", options: ["After the project fails.", "During the launch party.", "Before the project begins.", "Only when a manager asks."], correctAnswer: 2 },
-    { id: 11, title: "The Five Whys", quote: "Ask 'why?' five times to reach the root cause.", description: "<p>A symptom is rarely the root cause. If a customer received the wrong information, that is just a symptom.</p><p>By repeatedly asking 'Why did this happen?' (Why? The doc was outdated. Why? No review process. Why? Devs are siloed from writers), you move past superficial errors to the true systemic flaws.</p>", takeaway: "Don't just treat the symptom; cure the disease.", quizQuestion: "What is the goal of the Five Whys?", options: ["To annoy coworkers.", "To move from symptom to root cause.", "To stall a meeting.", "To assign blame."], correctAnswer: 1 },
-    { id: 12, title: "The 3-1-1 Method", quote: "One problem, three solutions, one recommendation.", description: "<p>Never bring a raw problem to your manager and expect them to solve it for you. It drains their energy and makes you look helpless.</p><p>Bring the problem, outline three possible ways to solve it, and explicitly state your recommendation. You change from being a problem-dumper to a solution-bringer.</p>", takeaway: "Be a solution-bringer, not a problem-dumper.", quizQuestion: "If an API is crashing, how do you present it using 3-1-1?", options: ["'The API is down, what do we do?'", "'API down. Option A, B, C. I recommend A.'", "'I fixed the API.'", "'Who broke the API?'"], correctAnswer: 1 },
-    { id: 13, title: "DACI", quote: "Driver, Approver, Contributors, Informed.", description: "<p>A framework to kill endless, circular meetings by clarifying decision-making roles.</p><p>The Driver does the work. The Approver makes the final call (this must be exactly one person). Contributors give expert advice but have no vote. Informed people just get told the result.</p>", takeaway: "Clear roles prevent endless meetings.", quizQuestion: "In the DACI model, how many Approvers should there be?", options: ["As many as possible.", "Exactly one.", "The whole team.", "Zero."], correctAnswer: 1 },
-    { id: 14, title: "Bias for Action", quote: "Most decisions are reversible. Decide fast, learn, adjust.", description: "<p>Jeff Bezos popularized this by categorizing decisions. Type 1 decisions are irreversible (one-way doors); you must deliberate slowly.</p><p>Type 2 decisions are reversible (two-way doors); you should decide fast. The biggest mistake companies make is treating reversible Type 2 choices like Type 1.</p>", takeaway: "Speed matters in business. Move fast on reversible choices.", quizQuestion: "Choosing a new software to trial for 14 days is an example of:", options: ["A one-way door.", "A two-way door (Type 2 decision).", "A permanent commitment.", "A strategic blunder."], correctAnswer: 1 },
-    { id: 15, title: "KWL", quote: "What I Know, What I Wonder, What I Learned.", description: "<p>A structured way to approach new tools or projects to cut through hype and confusion.</p><p>Before you start, list what you already Know, and what you need to find out (Wonder). After testing, write down what you actually Learned. It forces clear-eyed assessment.</p>", takeaway: "Structure your curiosity to get actual results.", quizQuestion: "What does the 'W' in KWL stand for?", options: ["Work", "Wonder", "Win", "Wait"], correctAnswer: 1 },
-    { id: 16, title: "The Personal README", quote: "A one-page user manual for working with you.", description: "<p>Like software, humans come with specific operating instructions. A Personal README is a document outlining your working style.</p><p>It includes when you are most focused, how you prefer to receive feedback, and your communication quirks. It accelerates trust and reduces friction with new teams.</p>", takeaway: "Don't make people guess how to work with you.", quizQuestion: "What should be included in a Personal README?", options: ["Deepest secrets.", "Communication preferences and working hours.", "Your resume.", "List of demands."], correctAnswer: 1 },
-    { id: 17, title: "FLIP It Email", quote: "Put the ask first, context second.", description: "<p>Stop burying your requests at the bottom of long emails. People skim, and they will miss it.</p><p>State exactly what you need in the very first sentence ('Action needed: approve budget by Friday'). Then, provide the background context below it for those who need it.</p>", takeaway: "Respect people's time by getting to the point immediately.", quizQuestion: "How should a FLIP It email begin?", options: ["With a long apology.", "With the specific action required.", "With a detailed backstory.", "With a vague greeting."], correctAnswer: 1 },
-    { id: 18, title: "The One-Pager", quote: "Condense updates to one page for executives.", description: "<p>If you cannot fit the project status, key developments, critical risks, and necessary decisions onto a single printed page, you haven't thought about it clearly enough.</p><p>Executives do not want to read a 14-page deck. Clarity forces brevity.</p>", takeaway: "Clarity forces brevity.", quizQuestion: "Why is the One-Pager effective?", options: ["It saves printer ink.", "It forces clear thinking and brevity.", "It hides details.", "It is a legal requirement."], correctAnswer: 1 },
-    { id: 19, title: "The Weekly Update", quote: "52 weekly summaries = your annual review, pre-written.", description: "<p>Every Friday, send a 3-bullet summary: Completed, In Progress, Blockers. Save a copy of it.</p><p>When annual performance review season arrives, you won't have to stare at a blank page trying to remember March. You will have a perfect, searchable log of your exact impact.</p>", takeaway: "Make your accomplishments visible and searchable.", quizQuestion: "What is the long-term benefit of the Weekly Update?", options: ["It writes your annual review for you.", "It guarantees a promotion.", "It replaces daily standups.", "It annoys your manager."], correctAnswer: 0 },
-    { id: 20, title: "Skip-Level Meetings", quote: "Align your work to the skip-level person’s goals.", description: "<p>When meeting your boss's boss, do not talk about your daily to-do list. They do not care about the weeds.</p><p>Instead, talk explicitly about how your specific projects align with the high-level strategic goals they announced for the entire department. Show them you understand the big picture.</p>", takeaway: "Speak the language of the level above you.", quizQuestion: "What should you discuss in a skip-level meeting?", options: ["Your complaints about your boss.", "How your work connects to their high-level goals.", "Your daily task list.", "Office gossip."], correctAnswer: 1 },
-    { id: 21, title: "Blue/Green/Red Speakers", quote: "Categorise meeting contributions by value.", description: "<p>Blue speakers nod and agree pleasantly. Green speakers offer real input that drives the project forward. Red speakers drain energy by complaining or blocking ideas without ever proposing alternatives.</p><p>As a leader, your job is to politely challenge the Blue, redirect the Red, and protect the Green.</p>", takeaway: "Manage the energy in the room, not just the agenda.", quizQuestion: "How do you handle a 'Red' speaker in a meeting?", options: ["Ignore them.", "Redirect by asking 'What would need to change for you to support this?'", "Argue with them.", "Promote them."], correctAnswer: 1 },
-    { id: 22, title: "The Teach-Back Method", quote: "Ask them to explain it back to confirm understanding.", description: "<p>If you ask 'Do you understand?', people will almost always say yes just to be polite or avoid looking foolish.</p><p>Instead, ask 'Can you walk me through how you'll execute this?' It immediately reveals gaps in communication before expensive mistakes happen.</p>", takeaway: "True understanding is being able to explain it back.", quizQuestion: "What is the best alternative to asking 'Do you understand?'", options: ["'Are you sure?'", "'Walk me through your next steps.'", "'Did you hear me?'", "'Good luck.'"], correctAnswer: 1 },
-    { id: 23, title: "Working Out Loud", quote: "Make work visible, narrate it, frame it as contribution.", description: "<p>Do not hide in a cave for a month to build something, only to reveal it at the end. Post your early drafts and wireframes publicly.</p><p>You will get early feedback, naturally build buy-in, and avoid spending weeks duplicating work that another team has already done.</p>", takeaway: "Great work doesn't happen in a silo.", quizQuestion: "Working Out Loud helps prevent:", options: ["Collaboration.", "Duplicating work someone else is already doing.", "Promotions.", "Feedback."], correctAnswer: 1 },
-    { id: 24, title: "The ONE Thing", quote: "The one task that makes everything else easier or unnecessary.", description: "<p>When faced with an overwhelming 20-item to-do list, ask yourself: 'What is the ONE thing I can do such that by doing it, everything else becomes easier or completely unnecessary?'</p><p>Find the highest leverage point and tackle that first. Let the rest burn if needed.</p>", takeaway: "Focus on leverage, not just activity.", quizQuestion: "How do you identify your 'ONE Thing'?", options: ["It's the easiest task.", "It's the task that makes other tasks easier or irrelevant.", "It's the newest email.", "It's what someone else asks you to do."], correctAnswer: 1 },
-    { id: 25, title: "Energy-Based Scheduling", quote: "Schedule by energy peaks, not arbitrary time slots.", description: "<p>Stop trying to do cognitively demanding, creative work during your 3 PM biological slump. It is like sprinting in quicksand.</p><p>Map out your natural energy peaks and aggressively protect those hours for hard thinking. Relegate emails and admin tasks to your energy troughs.</p>", takeaway: "Manage your energy, not just your time.", quizQuestion: "If you have a natural energy slump at 2 PM, what should you schedule then?", options: ["A deep-focus strategy document.", "Routine admin tasks or low-stakes emails.", "A critical client pitch.", "A brainstorming session."], correctAnswer: 1 },
-    { id: 26, title: "Parkinson’s Law", quote: "Work expands to fill the time. Set tighter deadlines.", description: "<p>If you give a meeting an hour, participants will unconsciously stretch the conversation to fill that hour.</p><p>If you give the exact same agenda 25 minutes, you will cover the same ground with much sharper focus. Constrict your time to force efficiency.</p>", takeaway: "Constrict time to force efficiency.", quizQuestion: "According to Parkinson's Law, what happens if you give yourself a week to do a 2-hour task?", options: ["You finish in 2 hours.", "The task expands in complexity to fill the whole week.", "The task disappears.", "The quality improves dramatically."], correctAnswer: 1 },
-    { id: 27, title: "The Two-Minute Rule", quote: "Under two minutes? Do it now.", description: "<p>If an email or micro-task takes less than two minutes to complete, do not put it on a list or 'save it for later'.</p><p>The mental overhead of tracking it, remembering it, and returning to it actually takes longer than just doing the task immediately. Kill it instantly.</p>", takeaway: "Kill micro-tasks before they multiply.", quizQuestion: "Why should you do 2-minute tasks immediately?", options: ["Because they are the most important.", "The organizational overhead of deferring them takes longer than the task itself.", "To impress your boss.", "Because it's a company rule."], correctAnswer: 1 },
-    { id: 28, title: "Breaking Down the Boxes", quote: "Small boring tasks pile up into crises. Do them now.", description: "<p>A simple five-minute system update that you continually defer eventually becomes a five-hour crisis when the system breaks and customers complain.</p><p>Handle small, boring maintenance tasks in the moment before they quietly accumulate into full-blown disasters.</p>", takeaway: "Maintenance is cheaper than repair.", quizQuestion: "What happens to small deferred maintenance tasks?", options: ["They resolve themselves.", "They compound into massive crises later.", "Someone else does them.", "They disappear."], correctAnswer: 1 },
-    { id: 29, title: "Fire and Forget", quote: "Be the employee trusted to solve problems independently.", description: "<p>When given a problem, do not wait for step-by-step instructions. Clarify the core goal, go figure it out, deliver the outcome, and report back.</p><p>Be a self-guided missile. Managers deeply value people who can take a problem and make it vanish without needing hand-holding.</p>", takeaway: "Be a self-guided problem solver.", quizQuestion: "A 'Fire and Forget' employee...", options: ["Needs constant hand-holding.", "Takes a problem, solves it independently, and returns with the outcome.", "Fires colleagues.", "Forgets their tasks."], correctAnswer: 1 },
-    { id: 30, title: "The Don’t-Do-It List", quote: "Negative commitments are stronger than positive intentions.", description: "<p>Write down the things you explicitly refuse to do (e.g., 'I will not attend meetings without agendas' or 'I will not check Slack before 10 AM').</p><p>These hard, negative boundaries protect your focus infinitely better than vague, positive goals like 'I will try to work harder'.</p>", takeaway: "Protect your time with strict boundaries.", quizQuestion: "What is the purpose of a Don't-Do-It list?", options: ["To be negative.", "To set strict boundaries that protect your time and focus.", "To list chores.", "To annoy people."], correctAnswer: 1 },
-    { id: 31, title: "Map Then Automate", quote: "Understand your workflow before optimising with tools.", description: "<p>Do not throw AI or automation at a messy, misunderstood process. It will just speed up your errors.</p><p>Map every single step of your workflow first. Figure out which specific parts require human judgment, and only automate the repetitive, mechanical steps.</p>", takeaway: "Don't automate a broken process.", quizQuestion: "Why map a process before using AI?", options: ["To slow down.", "To identify which specific steps actually benefit from automation.", "To look busy.", "To avoid using AI."], correctAnswer: 1 },
-    { id: 32, title: "Kaizen", quote: "Small daily improvements, compounded over time.", description: "<p>Stop looking for massive, disruptive overhauls. Look for 1% improvements.</p><p>Fix one tiny friction point every Friday. Over a year, those 50 tiny changes will compound and completely transform your workflow. The people closest to the work know what needs fixing.</p>", takeaway: "Consistency beats intensity.", quizQuestion: "What is the core philosophy of Kaizen?", options: ["Massive, disruptive change.", "Small, continuous improvements that compound.", "Ignoring problems.", "Working 100 hours a week."], correctAnswer: 1 },
-    { id: 33, title: "Go to Gemba", quote: "Go where the work happens. Observe, listen, learn.", description: "<p>'Gemba' means the real place. You cannot fix processes effectively from a conference room.</p><p>Go sit with the frontline customer service reps, watch how they actually use the software, and fix the reality they experience, not the theory on your whiteboard.</p>", takeaway: "The map is not the territory; go to the territory.", quizQuestion: "What does 'Going to Gemba' look like in practice?", options: ["Reading a report.", "Sitting with the frontline workers to watch how the work is actually done.", "Having a board meeting.", "Sending an email survey."], correctAnswer: 1 },
-    { id: 34, title: "The Feedback Flywheel", quote: "Embed feedback loops so improvement sustains itself.", description: "<p>Every output you create needs a mechanism to gather feedback. Look at that feedback, act on it, and feed the improvements directly into the next version.</p><p>By automating the collection of feedback, you create a self-sustaining engine of quality.</p>", takeaway: "Make continuous improvement automatic.", quizQuestion: "A Feedback Flywheel ensures that:", options: ["You never make mistakes.", "Improvement is a continuous, self-sustaining loop.", "You only get positive feedback.", "Customers do your work."], correctAnswer: 1 },
-    { id: 35, title: "The Experiment Log", quote: "Record hypotheses and results. Build your evidence base.", description: "<p>Treat your work like science. Note your hypothesis ('Adding video will reduce tickets by 20%'). Run the test. Log the exact result.</p><p>By doing this, you stop arguing opinions in meetings and start building an indisputable database of proven facts.</p>", takeaway: "Data wins arguments.", quizQuestion: "What is the main advantage of an Experiment Log?", options: ["It replaces opinions with recorded evidence.", "It looks scientific.", "It is required for compliance.", "It guarantees all ideas work."], correctAnswer: 0 },
-    { id: 36, title: "Shu-Ha-Ri", quote: "Follow rules, bend rules, transcend rules.", description: "<p>This martial arts concept describes three stages of mastery. <strong>Shu</strong>: Follow the checklist blindly to learn the basics.</p><p><strong>Ha</strong>: Understand the rules deeply enough to bend them for context. <strong>Ri</strong>: You have mastered the craft so fully that you invent the new rules.</p>", takeaway: "Master the basics before you break them.", quizQuestion: "In the 'Ha' stage of Shu-Ha-Ri, a practitioner:", options: ["Follows rules strictly.", "Understands the rules well enough to bend them.", "Invents entirely new paradigms.", "Quits learning."], correctAnswer: 1 },
-    { id: 37, title: "Rapid Prototyping", quote: "Build rough, test fast, learn cheap.", description: "<p>Do not spend a month polishing an idea that nobody actually wants. Build a rough, ugly version in an hour.</p><p>Show it to users immediately and get a signal on whether it's useful. Errors cost significantly less when caught early in the process.</p>", takeaway: "Fail fast to succeed sooner.", quizQuestion: "The goal of Rapid Prototyping is to:", options: ["Create a perfect final product.", "Test an idea quickly and cheaply.", "Skip QA testing.", "Impress investors with design."], correctAnswer: 1 },
-    { id: 38, title: "Red Teaming & Dogfooding", quote: "Attack your own work. Use what you build.", description: "<p><strong>Red Teaming</strong>: Assign a colleague to intentionally poke holes in your plan. <strong>Dogfooding</strong>: Force yourself to use the tool or process you just built.</p><p>You will immediately feel the friction firsthand. Be your own harshest critic and your own first user.</p>", takeaway: "Be your own harshest critic and your own first user.", quizQuestion: "What does 'Dogfooding' mean in a work context?", options: ["Bringing pets to the office.", "Forcing yourself to use the product or process you built.", "Attacking a colleague's idea.", "Working through lunch."], correctAnswer: 1 },
-    { id: 39, title: "Customer Journey Mapping", quote: "Map the full experience including feelings and friction.", description: "<p>Map out every single click, hold time, and emotion a user experiences when trying to achieve a goal with your product.</p><p>You will often find glaring bugs, absurd friction, and frustrating dead ends that high-level dashboards completely obscure.</p>", takeaway: "Walk a mile in your customer's digital shoes.", quizQuestion: "A Customer Journey Map must include:", options: ["Only the successful steps.", "The user's thoughts, feelings, and pain points.", "Only backend architecture.", "Financial projections."], correctAnswer: 1 },
-    { id: 40, title: "The Johari Window", quote: "What you know vs. what others see. Expand the overlap.", description: "<p>A psychological framework for self-awareness. There are things you know about yourself, and things others see that you are entirely blind to.</p><p>Actively asking for direct, honest feedback from colleagues shrinks your blind spots and makes you a better professional.</p>", takeaway: "Feedback is the antidote to blind spots.", quizQuestion: "In the Johari Window, a 'Blind Spot' is:", options: ["Something nobody knows.", "Something you know but hide.", "Something others see in you, but you are unaware of.", "A physical vision issue."], correctAnswer: 2 },
-    { id: 41, title: "The Swipe File", quote: "Collect examples of excellent work. Borrow patterns.", description: "<p>Whenever you see a brilliant email, presentation, or design, save it in a dedicated folder. Do not copy their content.</p><p>Instead, analyze and borrow the underlying structural pattern. Building a swipe file is the fastest, cheapest way to elevate your own output.</p>", takeaway: "Good artists copy; great artists steal structures.", quizQuestion: "How should you use a Swipe File?", options: ["To plagiarize content.", "To borrow underlying structural patterns of excellent work.", "To hide documents.", "To back up your hard drive."], correctAnswer: 1 },
-    { id: 42, title: "The Parking Lot", quote: "Capture ideas that aren’t ready yet. Revisit them.", description: "<p>When a great idea is raised but is out of scope for the current sprint, do not discard it. Put it in the 'Parking Lot'.</p><p>It honors the contributor's thinking and saves the brilliant idea for a future moment when the timing is actually right to execute it.</p>", takeaway: "Right idea, wrong time? Park it.", quizQuestion: "What happens to ideas in the Parking Lot?", options: ["They are deleted.", "They are saved and revisited later.", "They are executed immediately.", "They are sent to HR."], correctAnswer: 1 },
-    { id: 43, title: "The Work-Sharing Buddy", quote: "A trusted peer for mutual pre-stakeholder feedback.", description: "<p>Find a trusted peer. Review each other's important work before it goes to management. You will catch their contradictions, and they will catch your missing data.</p><p>We are all blind to our own mistakes. A second perspective is the cheapest quality assurance in existence.</p>", takeaway: "Never QA your own work.", quizQuestion: "Why have a Work-Sharing Buddy?", options: ["To complain about management.", "To catch blind spots and errors before high-stakes reviews.", "To do your work for you.", "To share lunch."], correctAnswer: 1 }
+const quests = [
+    { id: 1, name: "Inversion", category: "Thinking", concept: "Ask how to guarantee failure, then avoid those things.", example: "Onboarding: avoid no laptop, no introductions, etc.", origin: "Charlie Munger / Carl Jacobi", xp: 50 },
+    { id: 2, name: "Second-Order Thinking", category: "Thinking", concept: "Ask 'and then what?' to see consequences behind consequences.", example: "Budget cut → docs degrade → new hires slow → burnout.", origin: "Howard Marks", xp: 50 },
+    { id: 3, name: "The Map Is Not the Territory", category: "Thinking", concept: "Every model is a simplification. Go see the real thing.", example: "Dashboard says 94% freshness, but agents don't use the KB.", origin: "Alfred Korzybski", xp: 50 },
+    { id: 4, name: "Hanlon's Razor", category: "Thinking", concept: "Don't assume malice when neglect is likelier.", example: "Stakeholder changed request – probably overwhelmed, not undermining.", origin: "Robert J. Hanlon", xp: 50 },
+    { id: 5, name: "The Empty Boat", category: "Thinking", concept: "Most workplace friction has no villain.", example: "No reply for 3 days? They're drowning in inbox.", origin: "Zhuangzi", xp: 50 },
+    { id: 6, name: "The Cobra Effect", category: "Thinking", concept: "Good intentions + wrong incentives = worse problems.", example: "Support KPI 'resolution time' leads to ticket dumping.", origin: "Horst Siebert", xp: 50 },
+    { id: 7, name: "Goodhart's Law", category: "Thinking", concept: "When a measure becomes a target, it stops being a good measure.", example: "Content output metric → quantity over quality.", origin: "Charles Goodhart", xp: 50 },
+    { id: 8, name: "The Decision Journal", category: "Decision", concept: "Track decisions, reasoning, and outcomes. Review quarterly.", example: "Journal showed the process was sound, timeline wrong.", origin: "Daniel Kahneman / Farnam Street", xp: 50 },
+    { id: 9, name: "Fear-Setting", category: "Decision", concept: "Define worst fears, prevention, and recovery plans.", example: "Going freelance: define, prevent, repair.", origin: "Tim Ferriss / Seneca", xp: 50 },
+    { id: 10, name: "Pre-mortem", category: "Decision", concept: "Imagine the project failed. Write down what went wrong.", example: "Portal pre-mortem uncovered missing mobile support.", origin: "Gary Klein", xp: 50 },
+    { id: 11, name: "The Five Whys", category: "Decision", concept: "Ask 'why?' five times to reach root cause.", example: "Wrong info → outdated article → no review process.", origin: "Taiichi Ohno", xp: 50 },
+    { id: 12, name: "The 3-1-1 Method", category: "Decision", concept: "One problem, three solutions, one recommendation.", example: "Timeout: retry, batch, or support; recommend retry now.", origin: "Common practice", xp: 50 },
+    { id: 13, name: "DACI", category: "Decision", concept: "Driver, Approver, Contributors, Informed.", example: "KM drives, VP approves, SMEs contribute.", origin: "Intuit / Atlassian", xp: 50 },
+    { id: 14, name: "Bias for Action", category: "Decision", concept: "Most decisions are reversible. Decide fast, learn, adjust.", example: "Choose a tool quickly and iterate.", origin: "Jeff Bezos", xp: 50 },
+    { id: 15, name: "KWL", category: "Decision", concept: "What I Know, What I Wonder, What I Learned.", example: "Trial a tool and compare assumptions vs outcomes.", origin: "Donna Ogle", xp: 50 },
+    { id: 16, name: "The Personal README", category: "Communication", concept: "A one-page guide for how to work with you.", example: "Preferred hours, async style, feedback preferences.", origin: "Software README", xp: 50 },
+    { id: 17, name: "FLIP It Email", category: "Communication", concept: "Put the ask first, context second.", example: "Action needed by Thursday; details below.", origin: "Common", xp: 50 },
+    { id: 18, name: "The One-Pager", category: "Communication", concept: "Condense updates to one page.", example: "Status, decisions, risks.", origin: "General", xp: 50 },
+    { id: 19, name: "The Weekly Update", category: "Communication", concept: "52 summaries become your annual review.", example: "Done, in-progress, blockers, highlights.", origin: "General", xp: 50 },
+    { id: 20, name: "Skip-Level Meetings", category: "Communication", concept: "Align work to leadership priorities.", example: "Map project impact to cost-efficiency goals.", origin: "General", xp: 50 },
+    { id: 21, name: "Blue/Green/Red Speakers", category: "Communication", concept: "Categorize meeting contributions by value.", example: "Green contributes forward motion.", origin: "General", xp: 50 },
+    { id: 22, name: "The Teach-Back Method", category: "Communication", concept: "Ask others to explain it back.", example: "Have teammate explain rollout process.", origin: "Healthcare AHRQ", xp: 50 },
+    { id: 23, name: "Working Out Loud", category: "Communication", concept: "Make progress visible early.", example: "Share drafts before final version.", origin: "Bryce Williams", xp: 50 },
+    { id: 24, name: "The ONE Thing", category: "Productivity", concept: "Find the one task that unlocks the rest.", example: "Draft migration plan first.", origin: "Gary Keller", xp: 50 },
+    { id: 25, name: "Energy-Based Scheduling", category: "Productivity", concept: "Schedule by energy peaks.", example: "Deep work when attention is highest.", origin: "Daniel Pink", xp: 50 },
+    { id: 26, name: "Parkinson's Law", category: "Productivity", concept: "Work expands to fill available time.", example: "Compress a 1-hour meeting to 25 minutes.", origin: "C.N. Parkinson", xp: 50 },
+    { id: 27, name: "The Two-Minute Rule", category: "Productivity", concept: "If it takes two minutes, do it now.", example: "Resolve tiny tasks immediately.", origin: "David Allen", xp: 50 },
+    { id: 28, name: "Breaking Down the Boxes", category: "Productivity", concept: "Small neglected tasks become large crises.", example: "Quick KB update prevents support issues.", origin: "General", xp: 50 },
+    { id: 29, name: "Fire and Forget", category: "Productivity", concept: "Take ownership and deliver without micromanagement.", example: "Return with findings by Thursday.", origin: "Military / Management", xp: 50 },
+    { id: 30, name: "The Don't-Do-It List", category: "Productivity", concept: "Define what you refuse to do.", example: "No publishing without review.", origin: "General", xp: 50 },
+    { id: 31, name: "Map Then Automate", category: "Productivity", concept: "Understand workflow before automating.", example: "Map process, then automate bottlenecks.", origin: "General", xp: 50 },
+    { id: 32, name: "Kaizen", category: "Improvement", concept: "Small daily improvements compound.", example: "Fix one friction point each week.", origin: "Toyota / Masaaki Imai", xp: 50 },
+    { id: 33, name: "Go to Gemba", category: "Improvement", concept: "Go where work happens and observe directly.", example: "Sit with support agent and learn pain points.", origin: "Lean", xp: 50 },
+    { id: 34, name: "The Feedback Flywheel", category: "Improvement", concept: "Embed recurring feedback loops.", example: "Collect feedback after every output.", origin: "General", xp: 50 },
+    { id: 35, name: "The Experiment Log", category: "Improvement", concept: "Track hypothesis, action, and results.", example: "Document outcomes of each test.", origin: "General", xp: 50 },
+    { id: 36, name: "Shu-Ha-Ri", category: "Improvement", concept: "Follow, adapt, transcend.", example: "Start with rules, then innovate.", origin: "Aikido / Agile", xp: 50 },
+    { id: 37, name: "Rapid Prototyping", category: "Improvement", concept: "Build rough, test fast, learn cheap.", example: "Pilot with a small cohort first.", origin: "Design thinking", xp: 50 },
+    { id: 38, name: "Red Teaming & Dogfooding", category: "Improvement", concept: "Attack your own work and use it yourself.", example: "Dogfood onboarding checklist.", origin: "Military / Tech", xp: 50 },
+    { id: 39, name: "Customer Journey Mapping", category: "Improvement", concept: "Map full user experience including friction.", example: "Identify hidden cancellation friction.", origin: "Design thinking", xp: 50 },
+    { id: 40, name: "The Johari Window", category: "Improvement", concept: "Expand overlap between self-view and external feedback.", example: "Use feedback to reveal blind spots.", origin: "Luft & Ingham", xp: 50 },
+    { id: 41, name: "The Swipe File", category: "Career", concept: "Collect examples of excellent work.", example: "Reuse high-clarity structures.", origin: "Gary Halbert", xp: 50 },
+    { id: 42, name: "The Parking Lot", category: "Career", concept: "Capture ideas not ready yet.", example: "Revisit parked ideas monthly.", origin: "General", xp: 50 },
+    { id: 43, name: "The Work-Sharing Buddy", category: "Career", concept: "Use a trusted peer to review before stakeholders.", example: "Catch flaws before executive review.", origin: "General", xp: 50 }
 ];
 
-let previousQuestId = null;
-let currentQuestData = null;
-let totalXP = Number(localStorage.getItem("shrineXP") || 0);
-let isQuestCompleted = false;
+const STORAGE_KEY = "dailyQuestStateV3";
+const LEGACY_STORAGE_KEYS = ["dailyQuestStateV2", "dailyQuestState"];
 
-function updateHUD() {
-    document.getElementById("xp-counter").innerText = totalXP;
-    const level = Math.floor(totalXP / 200) + 1;
-    document.getElementById("level-counter").innerText = level;
-}
+let currentQuest = null;
+let xpBalance = 0;
+let questState = "learning";
+let selectedAnswer = null;
 
-function getRandomQuest() {
-    let randomIndex;
-    do {
-        randomIndex = Math.floor(Math.random() * frameworksData.length);
-    } while (frameworksData.length > 1 && frameworksData[randomIndex].id === previousQuestId);
-    return frameworksData[randomIndex];
-}
+let state = {
+    streak: 0,
+    lastCompletionDate: null,
+    spellbook: [],
+    parkingLot: ""
+};
 
-function loadQuest() {
-    currentQuestData = getRandomQuest();
-    previousQuestId = currentQuestData.id;
-    isQuestCompleted = false;
+let activeTrial = null;
+const STORAGE_KEY = "dailyQuestStateV2";
+const LEGACY_STORAGE_KEY = "dailyQuestState";
 
-    document.getElementById("fw-id").innerText = String(currentQuestData.id).padStart(2, "0");
-    document.getElementById("fw-title").innerText = currentQuestData.title;
-    document.getElementById("fw-quote").innerText = `"${currentQuestData.quote}"`;
-    document.getElementById("fw-description").innerHTML = currentQuestData.description;
-    document.getElementById("fw-takeaway").innerText = currentQuestData.takeaway;
-    document.getElementById("fw-question").innerText = currentQuestData.quizQuestion;
-
-    const optionsContainer = document.getElementById("fw-options");
-    optionsContainer.innerHTML = "";
-
-    currentQuestData.options.forEach((optionText, index) => {
-        const btn = document.createElement("button");
-        btn.className = "w-full text-left p-6 rounded-2xl bg-[#0a0d14] border border-panelBorder text-gray-300 text-lg hover:border-gold hover:bg-[#111622] transition-all duration-200 focus:outline-none";
-        btn.innerText = optionText;
-        btn.addEventListener("click", () => handleAnswerClick(index, btn));
-        optionsContainer.appendChild(btn);
-    });
-}
-
-function animateXPIncrement(start, end, duration = 500) {
-    const startTime = performance.now();
-
-    function tick(now) {
-        const progress = Math.min((now - startTime) / duration, 1);
-        const value = Math.floor(start + (end - start) * progress);
-        document.getElementById("xp-counter").innerText = value;
-        if (progress < 1) {
-            requestAnimationFrame(tick);
-        } else {
-            updateHUD();
+function loadState() {
+    const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
+    if (saved) {
+        try {
+            const parsed = JSON.parse(saved);
+            xpBalance = Number(parsed.xpBalance ?? parsed.totalXP ?? 0);
+            state = {
+                ...state,
+                ...parsed,
+                spellbook: parsed.spellbook || [],
+                parkingLot: parsed.parkingLot || ""
+            };
+        } catch (error) {
+            console.error(error);
         }
     }
+}
+
+function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
 
     requestAnimationFrame(tick);
 }
 
-function handleAnswerClick(selectedIndex, btnElement) {
-    if (isQuestCompleted) return;
+function getRandomQuest(excludeId = null) {
+    const pool = quests.filter((q) => q.id !== excludeId);
+    return pool[Math.floor(Math.random() * pool.length)] || quests[0];
+}
 
-    if (selectedIndex === currentQuestData.correctAnswer) {
-        isQuestCompleted = true;
-        const previousXP = totalXP;
-        totalXP += 50;
-        localStorage.setItem("shrineXP", String(totalXP));
-        animateXPIncrement(previousXP, totalXP);
+function animateXp(from, to, duration = 700) {
+    const start = performance.now();
+    const total = Math.max(1, to - from);
 
-        document.getElementById("trial-section").classList.add("hide");
-        document.getElementById("reward-section").classList.remove("hide");
+    const step = (now) => {
+        const progress = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(from + total * eased);
+        renderXp(value);
+        if (progress < 1) requestAnimationFrame(step);
+    };
+
+    requestAnimationFrame(step);
+}
+
+function renderXp(value = xpBalance) {
+    const level = Math.floor(value / 500) + 1;
+    document.getElementById("level").innerText = level;
+    document.getElementById("totalXP").innerText = value;
+    document.getElementById("streak").innerText = state.streak;
+
+    const xpInCurrent = value % 500;
+    document.getElementById("xpBar").style.width = `${(xpInCurrent / 500) * 100}%`;
+    document.getElementById("xpText").innerText = `${xpInCurrent} / 500 XP`;
+}
+
+function buildTrial(quest) {
+    const correct = `Because ${quest.concept.toLowerCase()}`;
+    const options = [
+        correct,
+        "Because speed is always more important than clarity.",
+        "Because every problem has one fixed answer regardless of context."
+    ].sort(() => Math.random() - 0.5);
+
+    activeTrial = {
+        questId: quest.id,
+        question: quest.quizQuestion,
+        options,
+        correctIndex: quest.correctAnswer
+    };
+}
+
+function renderWisdomJourney(quest) {
+    document.getElementById("questHeroCategory").innerText = `FRAMEWORK • ${todayString()}`;
+    document.getElementById("questHeroName").innerText = quest.name;
+    document.getElementById("questHeroConcept").innerText = quest.concept;
+
+    document.getElementById("essenceBody").innerHTML = quest.description;
+    document.getElementById("patternName").innerText = quest.name;
+    document.getElementById("patternQuote").innerText = `“${quest.concept}”`;
+
+    document.getElementById("originBody").innerText = `Takeaway: ${quest.example}`;
+    document.getElementById("questCategory").innerText = quest.category;
+    document.getElementById("questName").innerText = quest.name;
+    document.getElementById("concept").innerHTML = `<strong>🧠 Quote:</strong> ${quest.concept}`;
+    document.getElementById("example").innerHTML = `<strong>📖 Takeaway:</strong> ${quest.example}`;
+    document.getElementById("origin").innerHTML = `<strong>🏛️ Source:</strong> ${quest.origin}`;
+
+    document.getElementById("questCategory").innerText = quest.category;
+    document.getElementById("questName").innerText = quest.name;
+    document.getElementById("concept").innerHTML = `<strong>🧠 Concept:</strong> ${quest.concept}`;
+    document.getElementById("example").innerHTML = `<strong>📖 Example:</strong> ${quest.example}`;
+    document.getElementById("origin").innerHTML = `<strong>🏛️ Origin:</strong> ${quest.origin}`;
+
+    const practiceCards = document.getElementById("practiceCards");
+    practiceCards.innerHTML = "";
+    [
+        { title: "Visual Decision", text: "Turn this principle into one slide for your team this week." },
+        { title: "Narrative Structure", text: `Use ${quest.name} in your next update or pitch.` },
+        { title: "Logical Validation", text: "Run one important choice through this lens before acting." }
+    ].forEach((item) => {
+        const card = document.createElement("article");
+        card.className = "bg-surface-container-low border border-slate-700 rounded-xl p-6";
+        card.innerHTML = `<h3 class="font-headline text-2xl mb-3">${item.title}</h3><p class="text-on-surface-variant">${item.text}</p>`;
+        practiceCards.appendChild(card);
+    });
+}
+
+function handleWrongAnswer(button, feedbackEl) {
+    button.classList.remove("shake");
+    void button.offsetWidth;
+    button.classList.add("shake", "wrong");
+    feedbackEl.innerText = "Not quite. Try another option.";
+}
+
+function handleCorrectAnswer(button, feedbackEl) {
+    button.classList.add("correct");
+    feedbackEl.innerText = "Correct. Wisdom integrated.";
+
+    document.querySelectorAll(".trial-option-btn").forEach((btn) => {
+        btn.disabled = true;
+        if (btn !== button) btn.style.opacity = "0.55";
+    });
+
+    const before = xpBalance;
+    xpBalance += currentQuest.xp;
+    questState = "completed";
+    selectedAnswer = activeTrial.correctIndex;
+
+    const today = todayString();
+    if (state.lastCompletionDate === null) {
+        state.streak = 1;
     } else {
-        btnElement.classList.remove("border-panelBorder", "hover:border-gold", "hover:bg-[#111622]");
-        btnElement.classList.add("border-red-500", "text-red-400", "bg-red-900/10", "animate-shake");
-        setTimeout(() => btnElement.classList.remove("animate-shake"), 400);
+        const last = new Date(state.lastCompletionDate);
+        const diffDays = (new Date(today) - last) / 86400000;
+        state.streak = diffDays === 1 ? state.streak + 1 : 1;
+    }
+    state.lastCompletionDate = today;
+
+    animateXp(before, xpBalance);
+    saveState();
+
+    const pdfButton = document.getElementById("downloadPdfBtn");
+    pdfButton.classList.remove("hidden");
+    requestAnimationFrame(() => {
+        pdfButton.classList.remove("opacity-0");
+        pdfButton.style.transform = "translateY(0)";
+    });
+}
+
+function renderTrial() {
+    buildTrial(currentQuest);
+    const optionsDiv = document.getElementById("trialOptions");
+    const feedbackEl = document.getElementById("trialFeedback");
+    optionsDiv.innerHTML = "";
+    feedbackEl.innerText = "";
+
+    document.getElementById("trialQuestion").innerText = activeTrial.question;
+
+    activeTrial.options.forEach((optionText, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "trial-option-btn";
+        button.innerHTML = `<span class="font-label text-xs uppercase tracking-wider mr-3">${String.fromCharCode(65 + index)}</span><span>${optionText}</span>`;
+
+        button.addEventListener("click", () => {
+            if (questState === "completed") return;
+            selectedAnswer = index;
+            const isCorrect = index === activeTrial.correctIndex;
+            if (isCorrect) {
+                handleCorrectAnswer(button, feedbackEl);
+            } else {
+                handleWrongAnswer(button, feedbackEl);
+            }
+        });
+
+        optionsDiv.appendChild(button);
+    });
+}
+
+function updateSpellbookButton() {
+    const favBtn = document.getElementById("favoriteBtn");
+    if (state.spellbook.includes(currentQuest.id)) {
+        favBtn.innerHTML = "In Spellbook";
+        favBtn.style.opacity = "0.7";
+    } else {
+        favBtn.innerHTML = "Add to Spellbook";
+        favBtn.style.opacity = "1";
     }
 }
 
-function triggerNextQuest() {
-    const mainContent = document.getElementById("main-content");
-    mainContent.classList.add("opacity-0");
+function renderQuest() {
+    renderWisdomJourney(currentQuest);
+    renderTrial();
+    updateSpellbookButton();
+    renderXp();
 
-    setTimeout(() => {
-        document.getElementById("reward-section").classList.add("hide");
-        document.getElementById("trial-section").classList.remove("hide");
-        loadQuest();
-        mainContent.classList.remove("opacity-0");
-    }, 400);
+    const pdfButton = document.getElementById("downloadPdfBtn");
+    pdfButton.classList.add("hidden", "opacity-0");
+    pdfButton.style.transform = "translateY(4px)";
 }
 
-function downloadPDF() {
-    alert(`Generating detailed PDF artifact for: ${currentQuestData.title}...`);
+function swapToNextQuest() {
+    const container = document.getElementById("mainContentContainer");
+    container.classList.add("content-fade-out");
+
+    setTimeout(() => {
+        const previousId = currentQuest?.id ?? null;
+        currentQuest = getRandomQuest(previousId);
+        questState = "learning";
+        selectedAnswer = null;
+        renderQuest();
+        container.classList.remove("content-fade-out");
+    }, 280);
+}
+
+function toggleSpellbook() {
+    if (state.spellbook.includes(currentQuest.id)) {
+        state.spellbook = state.spellbook.filter((id) => id !== currentQuest.id);
+    } else {
+        state.spellbook.push(currentQuest.id);
+    }
+    saveState();
+    updateSpellbookButton();
+}
+
+function renderSpellbook() {
+    const list = document.getElementById("spellbookList");
+    list.innerHTML = "";
+    const bookmarked = quests.filter((q) => state.spellbook.includes(q.id));
+    if (bookmarked.length === 0) {
+        list.innerHTML = "<li>Your spellbook is empty. Add frameworks you love!</li>";
+        return;
+    }
+}
+
+    bookmarked.forEach((q) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span><strong>${q.name}</strong> – ${q.category}</span><span>⭐</span>`;
+        list.appendChild(li);
+    });
+}
+
+function renderQuestLog() {
+    const container = document.getElementById("questLogList");
+    container.innerHTML = "";
+    quests.forEach((q) => {
+        const div = document.createElement("div");
+        div.className = "quest-log-item" + (state.spellbook.includes(q.id) ? " completed" : "");
+        div.innerHTML = `<span><strong>${q.name}</strong> (${q.category})</span><span>${state.spellbook.includes(q.id) ? "⭐ Bookmarked" : "—"}</span>`;
+        container.appendChild(div);
+    });
+}
+
+function openModal(modalId) {
+    document.getElementById(modalId).style.display = "block";
+}
+
+function closeModals() {
+    document.querySelectorAll(".modal").forEach((modal) => {
+        modal.style.display = "none";
+    });
 }
 
 function init() {
-    updateHUD();
-    loadQuest();
+    loadState();
+    renderQuest();
 
-    document.getElementById("next-quest-btn").addEventListener("click", triggerNextQuest);
-    document.getElementById("download-pdf-btn").addEventListener("click", downloadPDF);
+    document.getElementById("completeBtn").addEventListener("click", swapToNextQuest);
+    document.getElementById("nextQuestBtn").addEventListener("click", swapToNextQuest);
+    document.getElementById("beginDailyQuestBtn").addEventListener("click", () => {
+        swapToNextQuest();
+        document.getElementById("wisdomJourney").scrollIntoView({ behavior: "smooth" });
+    });
+
+    document.getElementById("downloadPdfBtn").addEventListener("click", () => {
+        window.print();
+    });
+
+    document.getElementById("showSpellbookBtn").addEventListener("click", () => {
+        renderSpellbook();
+        openModal("spellbookModal");
+    });
+
+    document.getElementById("showParkingLotBtn").addEventListener("click", () => {
+        document.getElementById("parkingLotText").value = state.parkingLot;
+        openModal("parkingLotModal");
+    });
+
+    document.getElementById("showQuestLogBtn").addEventListener("click", () => {
+        renderQuestLog();
+        openModal("questLogModal");
+    });
+
+    document.getElementById("saveParkingLot").addEventListener("click", () => {
+        state.parkingLot = document.getElementById("parkingLotText").value;
+        saveState();
+        closeModals();
+    });
+
+    document.querySelectorAll(".close").forEach((btn) => btn.addEventListener("click", closeModals));
+    window.addEventListener("click", (event) => {
+        if (event.target.classList.contains("modal")) closeModals();
+    });
+}
+
+function init() {
+    loadState();
+    currentQuest = getRandomQuest();
+    renderQuest();
+    setupEvents();
 }
 
 init();

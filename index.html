@@ -1,98 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shrine of Knowledge</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Shrine of Knowledge | Digital Zen</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Manrope:wght@300;400;600&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <link href="style.css" rel="stylesheet" />
+  <script id="tailwind-config">
     tailwind.config = {
+      darkMode: "class",
       theme: {
         extend: {
-          colors: { dark: '#07090E', gold: '#EBB44D', panel: '#11141D', panelBorder: '#232838' },
-          fontFamily: { serif: ['"Playfair Display"', 'serif'], sans: ['Inter', 'sans-serif'] },
-          animation: {
-            'shake': 'shake 0.4s cubic-bezier(.36,.07,.19,.97) both',
-            'fade-in': 'fadeIn 0.6s ease-out forwards',
-            'glow-pulse': 'glowPulse 3s infinite alternate'
+          colors: {
+            surface: "#0f131c",
+            "surface-container-lowest": "#0a0e16",
+            "surface-container-low": "#181c24",
+            "surface-container": "#1c2028",
+            "surface-container-high": "#262a33",
+            "surface-container-highest": "#31353e",
+            "on-surface": "#dfe2ee",
+            "on-surface-variant": "#c6c6cb",
+            primary: "#e9c400",
+            "on-primary": "#3a3000",
+            secondary: "#46eaed"
           },
-          keyframes: {
-            shake: {
-              '10%, 90%': { transform: 'translate3d(-2px, 0, 0)' },
-              '20%, 80%': { transform: 'translate3d(4px, 0, 0)' },
-              '30%, 50%, 70%': { transform: 'translate3d(-6px, 0, 0)' },
-              '40%, 60%': { transform: 'translate3d(6px, 0, 0)' }
-            },
-            fadeIn: { '0%': { opacity: '0', transform: 'scale(0.98)' }, '100%': { opacity: '1', transform: 'scale(1)' } },
-            glowPulse: { '0%': { boxShadow: '0 0 20px rgba(235,180,77,.1)' }, '100%': { boxShadow: '0 0 40px rgba(235,180,77,.3)' } }
+          fontFamily: {
+            headline: ["Noto Serif"],
+            body: ["Manrope"],
+            label: ["Space Grotesk"]
           }
         }
       }
     };
   </script>
-  <link href="style.css" rel="stylesheet">
 </head>
-<body class="font-sans antialiased min-h-screen flex flex-col h-screen overflow-hidden">
-  <header class="border-b border-panelBorder bg-dark/80 backdrop-blur-md z-20 flex-shrink-0">
-    <div class="max-w-[1400px] mx-auto p-4 sm:p-6 flex justify-between items-center">
-      <div class="flex items-center gap-4">
-        <div class="w-2 h-2 rounded-full bg-gold animate-glow-pulse"></div>
-        <h1 class="text-gold font-serif text-2xl tracking-widest uppercase">The Shrine</h1>
-      </div>
-      <div class="flex items-center gap-8 bg-panel border border-panelBorder rounded-full px-6 py-2 shadow-lg">
-        <div class="flex flex-col items-center">
-          <span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Player Level</span>
-          <span id="level-counter" class="text-white font-serif text-xl font-bold">1</span>
-        </div>
-        <div class="w-px h-8 bg-panelBorder"></div>
-        <div class="flex flex-col items-center">
-          <span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Total XP</span>
-          <span id="xp-counter" class="text-gold font-serif text-xl font-bold transition-all duration-300">0</span>
-        </div>
+<body class="bg-surface text-on-surface font-body selection:bg-primary/30 selection:text-primary">
+  <nav class="fixed top-0 w-full z-50 bg-slate-950/70 backdrop-blur-md flex justify-between items-center px-4 md:px-12 py-5 border-b border-primary/20">
+    <div class="text-xl md:text-2xl font-headline italic text-yellow-500 tracking-tighter">The Shrine of Knowledge</div>
+    <div class="hidden md:flex items-center space-x-12">
+      <a class="font-label text-xs uppercase tracking-widest text-yellow-400 font-bold border-b border-yellow-500/50 pb-1" href="#archive">The Archive</a>
+      <a class="font-label text-xs uppercase tracking-widest text-slate-400 hover:text-yellow-200 transition-colors" href="#wisdomJourney">The Ascension</a>
+      <a class="font-label text-xs uppercase tracking-widest text-slate-400 hover:text-yellow-200 transition-colors" href="#trialSection">The Trial</a>
+    </div>
+    <a href="#wisdomJourney" class="px-4 md:px-6 py-2 bg-primary text-on-primary font-label text-xs uppercase tracking-widest rounded-md">Begin the Ritual</a>
+  </nav>
+
+  <section id="archive" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-surface-container-lowest pt-24">
+    <div class="absolute inset-0 z-0">
+      <img alt="Cinematic cosmic portal" class="w-full h-full object-cover opacity-40 mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdKpqd-XBspZCimNq3mJa37z9f-TVxp1pvliijqiMhqT9C0ufGja15Z2tfuVWvZQiahzfFYsJy96CISmM-MDwFvopRxypfq-X0ezDNXowf4RKCd5pzKeXrdffrVJo726UXSTs7TUaEYNUkQaeZgcjEyUOp01196Sq8O9j8NTCSwblEMSTz_whi9DK_C4YnsPEajIWkukEg4j9RUoeOp1FtcJiiEHV1Kj8Nqtv_Q6r-Cu7mW8YpqOjv2clkTZymI3PhOW4PtkE6bTLn" />
+      <div class="absolute inset-0 bg-gradient-to-b from-surface/20 via-surface/60 to-surface"></div>
+    </div>
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <span class="font-label text-primary tracking-[0.4em] uppercase text-xs mb-8 block opacity-80">Ancient Wisdom • Future Intelligence</span>
+      <h1 class="font-headline text-5xl md:text-8xl text-on-surface mb-12 leading-tight tracking-tight">AI is leveling up.<br/><span class="italic text-primary text-glow-gold font-light">Are you?</span></h1>
+      <div class="flex flex-col items-center gap-8">
+        <a href="#wisdomJourney" class="group relative px-10 py-5 bg-primary text-on-primary font-headline text-lg italic tracking-wide rounded-md shadow-[0_0_40px_rgba(233,196,0,0.15)]">Enter the Shrine</a>
+        <div class="flex items-center gap-2 text-slate-500 font-label text-xs uppercase tracking-widest"><span>Scroll to Study</span><span class="material-symbols-outlined text-[14px]">expand_more</span></div>
       </div>
     </div>
-  </header>
+  </section>
 
-  <main id="main-content" class="flex-grow flex items-center justify-center p-4 sm:p-8 w-full max-w-[1400px] mx-auto transition-content h-full overflow-hidden">
-    <div class="w-full h-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 animate-fade-in pb-8">
-      <div class="lg:col-span-7 h-full flex flex-col overflow-y-auto pr-4 sm:pr-8 pt-4">
-        <div class="mb-10">
-          <p class="text-gold text-sm tracking-[0.3em] uppercase mb-4 font-bold flex items-center gap-3"><span class="w-8 h-px bg-gold"></span> Framework No. <span id="fw-id">--</span></p>
-          <h2 id="fw-title" class="font-serif text-5xl sm:text-7xl text-white mb-8 glow-text leading-tight">...</h2>
-          <blockquote id="fw-quote" class="text-2xl sm:text-3xl font-serif text-gray-400 italic border-l-4 border-gold/50 pl-8 py-2 leading-relaxed">...</blockquote>
-        </div>
-        <div class="text-gray-300 text-xl sm:text-2xl" id="fw-description"></div>
-        <div class="mt-8 mb-12 bg-panel border border-panelBorder p-8 rounded-2xl shadow-xl relative overflow-hidden">
-          <div class="absolute left-0 top-0 w-1 h-full bg-gold"></div>
-          <h3 class="text-gray-500 text-xs tracking-widest uppercase mb-3 font-bold">Core Takeaway</h3>
-          <p id="fw-takeaway" class="text-xl text-white font-serif leading-relaxed">...</p>
-        </div>
+  <div class="bg-surface-container-low border-y border-primary/10 py-3 text-center text-[11px] tracking-[0.35em] font-label uppercase text-primary/80">Wisdom Quest</div>
+
+  <section id="wisdomJourney" class="pt-24 pb-20">
+    <section class="relative min-h-[70vh] flex items-center px-6 md:px-16 lg:px-24 mb-20 overflow-hidden">
+      <div class="absolute inset-0 z-0 opacity-40">
+        <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDitP0ssQhSpdWnEOKXrW2jsxP_crHVu5WECDriM7lIPdmz65iL9LYYXYUl9rcCQIH-9_SKbjmoXuxMmApZIU8OrR6PZSzDKyrUlJND6L3ySqfvbGZteX4qDdNi-uJvhz75TwGIregVjk_KktPA6KMPVhrm49y6wAgBpEBbGB_M81qQplY1PvnPXdipiJ7f29w7YisDPelw0ybk54QPbpwYNK735LItTNkGOebiDIQKVo0VHZHsUYEIAKWDLjMOKg_bemgAlEIekg-M" alt="Abstract geometry" />
+        <div class="absolute inset-0 bg-gradient-to-r from-surface via-surface/80 to-transparent"></div>
       </div>
+      <div class="relative z-10 max-w-4xl">
+        <span id="questHeroCategory" class="font-label text-secondary text-xs uppercase tracking-[0.35em] mb-4 block"></span>
+        <h1 id="questHeroName" class="text-6xl md:text-8xl font-headline leading-tight mb-6"></h1>
+        <p id="questHeroConcept" class="text-lg md:text-2xl text-on-surface-variant max-w-2xl"></p>
+      </div>
+    </section>
 
-      <div class="lg:col-span-5 h-full flex flex-col justify-center pt-4">
-        <div id="trial-section" class="w-full bg-panel border border-panelBorder rounded-3xl p-8 sm:p-12 shadow-2xl relative overflow-hidden transition-all duration-500">
-          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold to-transparent opacity-30"></div>
-          <div class="mb-10">
-            <h3 class="font-serif text-3xl text-white mb-2">The Trial</h3>
-            <p class="text-gray-400 text-sm uppercase tracking-wider">Select the correct truth to advance</p>
-          </div>
-          <p id="fw-question" class="text-2xl mb-10 font-medium text-white leading-snug"></p>
-          <div id="fw-options" class="flex flex-col gap-4"></div>
-        </div>
+    <section class="max-w-[1440px] mx-auto px-6 md:px-16 lg:px-24 mb-28">
+      <div class="grid lg:grid-cols-12 gap-16 items-start">
+        <article class="lg:col-span-7">
+          <h2 class="font-headline text-4xl mb-8"><span class="text-primary opacity-30 text-5xl">01</span> The Essence</h2>
+          <p id="essenceBody" class="text-on-surface-variant leading-loose text-lg"></p>
+        </article>
+        <aside class="lg:col-span-5 bg-surface-container p-10 border border-primary/10">
+          <h3 id="patternName" class="font-headline italic text-3xl text-primary mb-3"></h3>
+          <p class="font-label text-xs uppercase tracking-widest text-slate-500 mb-6">— Core Pattern</p>
+          <p id="patternQuote" class="italic text-on-surface"></p>
+        </aside>
+      </div>
+    </section>
+  </section>
 
-        <div id="reward-section" class="hide w-full bg-[#0a1410] border-2 border-green-500/50 rounded-3xl p-8 sm:p-12 shadow-[0_0_50px_rgba(34,197,94,0.1)] text-center flex-col justify-center items-center">
-          <div class="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mb-6 mx-auto">✓</div>
-          <h3 class="font-serif text-4xl text-green-400 mb-2">Quest Complete</h3>
-          <p class="text-green-200/70 text-lg mb-12">+50 Experience Points Awarded</p>
-          <div class="flex flex-col gap-4 w-full">
-            <button id="next-quest-btn" class="w-full bg-gold text-dark font-bold text-xl py-5 rounded-xl hover:bg-yellow-400 transition-all duration-300 shadow-lg">Begin Next Quest ➔</button>
-            <button id="download-pdf-btn" class="w-full bg-transparent border-2 border-panelBorder text-gray-400 hover:text-white hover:border-gray-500 font-semibold text-lg py-4 rounded-xl transition-all duration-300">Download PDF Artifact</button>
-          </div>
+    <section class="bg-surface-container-low py-20 mb-28">
+      <div class="max-w-[1440px] mx-auto px-6 md:px-16 lg:px-24 grid lg:grid-cols-2 gap-16 items-center">
+        <div class="relative">
+          <img class="w-full grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-700" alt="Ancient bust" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA68IZgmZoebVDO9cfLogS_ECEj3SzL14qimySAtzvRrzo3LbaFl1O5fHgrpLdCEaXy572czAf5hIQpjNFraJfcAxOWiiYp8UwCjTA4U3vpBQTjN9RY3k4LBkVecPrd55iJGJrjyYPP-dbYH4Khwf0mDMvHI75ML7ch8v-XEF45xwcs1MGuOSd-M7oUej14k13gA_WgTjvfpgZeYKlrTuNyaNeiIeJMkfXDKBroJ_ZIPVbzxp6cYTGRBGrYwBf1L8ctyUpXnuliEcQs" />
         </div>
+        <article>
+          <h2 class="font-headline text-4xl mb-8"><span class="text-primary opacity-30 text-5xl">02</span> The Origin</h2>
+          <p id="originBody" class="text-on-surface-variant leading-loose"></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="max-w-[1440px] mx-auto px-6 md:px-16 lg:px-24 mb-24">
+      <h2 class="font-headline text-4xl text-center mb-12">Manifestations in <span class="text-primary italic">Practice</span></h2>
+      <div class="grid lg:grid-cols-3 gap-8" id="practiceCards"></div>
+    </section>
+  </section>
+
+  <section class="py-20 px-6" id="trialSection">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="font-label text-primary uppercase tracking-[0.4em] text-xs mb-3">Final Trial</p>
+      <h2 class="font-headline text-5xl mb-8">The Trial of Understanding</h2>
+      <div class="quest-card text-left">
+        <p id="trialQuestion" class="mb-5 font-label uppercase text-sm tracking-wider"></p>
+        <div id="trialOptions" class="space-y-3"></div>
+        <button id="submitTrialBtn" class="btn-complete mt-6">Complete Quest &amp; Claim XP ✨</button>
+        <div id="trialFeedback" class="completion-message"></div>
       </div>
     </div>
-  </main>
+  </section>
+
+  <section id="questConsole" class="bg-surface px-4 md:px-6 pb-16">
+    <div class="max-w-5xl mx-auto">
+      <div class="rounded-2xl border border-yellow-800/60 bg-slate-950/60 p-5 md:p-6 mb-6">
+        <div class="character-panel" id="progress">
+          <div class="character-card">
+            <div class="avatar"><i class="fas fa-user-astronaut"></i></div>
+            <div class="stats">
+              <div class="stat"><span class="stat-label">Level</span><span class="stat-value" id="level">1</span></div>
+              <div class="stat"><span class="stat-label">XP</span><span class="stat-value" id="totalXP">0</span></div>
+              <div class="stat"><span class="stat-label">Streak</span><span class="stat-value" id="streak">0</span></div>
+            </div>
+          </div>
+          <div class="xp-bar-container"><div class="xp-bar" id="xpBar"></div><span class="xp-text" id="xpText">0 / 500 XP</span></div>
+        </div>
+      </div>
+
+      <div class="quest-card" id="questCard">
+        <div class="quest-header"><h2><i class="fas fa-feather-alt"></i> Today’s Quest</h2><div class="quest-category" id="questCategory"></div></div>
+        <div class="quest-content"><h3 id="questName"></h3><div class="concept" id="concept"></div><div class="example" id="example"></div><div class="origin" id="origin"></div></div>
+        <div class="quest-actions"><button id="completeBtn" class="btn-complete">Jump to Trial</button><button id="favoriteBtn" class="btn-favorite">Add to Spellbook</button></div>
+        <div id="completionMessage" class="completion-message"></div>
+      </div>
+
+      <div class="extra-tools mt-4"><button id="showSpellbookBtn" class="tool-btn">Spellbook</button><button id="showParkingLotBtn" class="tool-btn">Parking Lot</button><button id="showQuestLogBtn" class="tool-btn">Quest Log</button></div>
+    </div>
+  </section>
+
+  <footer class="bg-slate-950 w-full py-20 px-6 md:px-12" id="scribes">
+    <div class="flex flex-col md:flex-row justify-between items-center border-t border-slate-800/30 max-w-7xl mx-auto pt-10">
+      <div class="mb-8 md:mb-0"><span class="text-lg font-headline text-yellow-600/50">The Digital Curator</span><p class="text-sm text-slate-500 mt-2">© MMXXVI The Digital Curator. All Rights Reserved.</p></div>
+      <div class="flex flex-wrap justify-center gap-8"><a class="text-sm text-slate-600 hover:text-teal-400" href="#wisdomJourney">The Manifesto</a><a class="text-sm text-slate-600 hover:text-teal-400" href="#">Privacy Echo</a><a class="text-sm text-slate-600 hover:text-teal-400" href="#">Artifact Licensing</a></div>
+    </div>
+  </footer>
+
+  <div id="spellbookModal" class="modal"><div class="modal-content"><span class="close">&times;</span><h2><i class="fas fa-book"></i> Spellbook</h2><p>Your favourite frameworks live here. Click the bookmark on any quest to add it.</p><ul id="spellbookList"></ul></div></div>
+  <div id="parkingLotModal" class="modal"><div class="modal-content"><span class="close">&times;</span><h2><i class="fas fa-parking"></i> Parking Lot</h2><p>Ideas not ready yet – save them for later.</p><textarea id="parkingLotText" rows="6" placeholder="Write your notes, ideas, or anything you want to keep..."></textarea><button id="saveParkingLot" class="btn-save">Save</button></div></div>
+  <div id="questLogModal" class="modal"><div class="modal-content"><span class="close">&times;</span><h2><i class="fas fa-list"></i> Quest Log</h2><p>All 43 frameworks – completed ones are marked.</p><div id="questLogList"></div></div></div>
 
   <script src="script.js"></script>
 </body>
