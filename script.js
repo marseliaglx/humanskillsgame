@@ -1,50 +1,48 @@
-// ========================
-// QUESTS DATA (43 frameworks)
-// ========================
+// Daily wisdom corpus
 const quests = [
-    { id: 1, name: "Inversion", category: "I. How Do I Think More Clearly?", concept: "Ask how to guarantee failure, then avoid those things.", example: "Onboarding: avoid no laptop, no introductions, etc.", origin: "Charlie Munger / Carl Jacobi", xp: 50 },
-    { id: 2, name: "Second-Order Thinking", category: "I. How Do I Think More Clearly?", concept: "Ask 'and then what?' to see consequences behind consequences.", example: "Budget cut → docs degrade → new hires slow → burnout.", origin: "Howard Marks", xp: 50 },
-    { id: 3, name: "The Map Is Not the Territory", category: "I. How Do I Think More Clearly?", concept: "Every model is a simplification. Go see the real thing.", example: "Dashboard says 94% freshness, but agents don't use the KB.", origin: "Alfred Korzybski", xp: 50 },
-    { id: 4, name: "Hanlon's Razor", category: "I. How Do I Think More Clearly?", concept: "Don't assume malice when neglect is likelier.", example: "Stakeholder changed request – probably overwhelmed, not undermining.", origin: "Robert J. Hanlon", xp: 50 },
-    { id: 5, name: "The Empty Boat", category: "I. How Do I Think More Clearly?", concept: "Most workplace friction has no villain.", example: "No reply for 3 days? They're drowning in inbox.", origin: "Zhuangzi", xp: 50 },
-    { id: 6, name: "The Cobra Effect", category: "I. How Do I Think More Clearly?", concept: "Good intentions + wrong incentives = worse problems.", example: "Support KPI 'resolution time' leads to ticket dumping.", origin: "Horst Siebert", xp: 50 },
-    { id: 7, name: "Goodhart's Law", category: "I. How Do I Think More Clearly?", concept: "When a measure becomes a target, it stops being a good measure.", example: "Content output metric → quantity over quality.", origin: "Charles Goodhart", xp: 50 },
-    { id: 8, name: "The Decision Journal", category: "II. How Do I Make Better Decisions?", concept: "Track decisions, reasoning, and outcomes. Review quarterly.", example: "Notion migration: journal showed process was sound, timeline wrong.", origin: "Daniel Kahneman / Farnam Street", xp: 50 },
-    { id: 9, name: "Fear-Setting", category: "II. How Do I Make Better Decisions?", concept: "Define worst fears, prevention, and recovery plans.", example: "Going freelance: define, prevent, repair.", origin: "Tim Ferriss / Seneca", xp: 50 },
-    { id: 10, name: "Pre-mortem", category: "II. How Do I Make Better Decisions?", concept: "Imagine the project failed. Write down what went wrong.", example: "Self-service portal pre-mortem uncovered missing mobile support.", origin: "Gary Klein", xp: 50 },
-    { id: 11, name: "The Five Whys", category: "II. How Do I Make Better Decisions?", concept: "Ask 'why?' five times to reach the root cause.", example: "Wrong info → outdated article → no review process → org design problem.", origin: "Taiichi Ohno", xp: 50 },
-    { id: 12, name: "The 3-1-1 Method", category: "II. How Do I Make Better Decisions?", concept: "One problem, three solutions, one recommendation.", example: "API timeout → retry, batch, or enterprise support; recommend retry now.", origin: "Common practice", xp: 50 },
-    { id: 13, name: "DACI", category: "II. How Do I Make Better Decisions?", concept: "Driver, Approver, Contributors, Informed. Clarify who decides.", example: "CMS decision: KM drives, VP approves, SMEs contribute.", origin: "Intuit / Atlassian", xp: 50 },
-    { id: 14, name: "Bias for Action", category: "II. How Do I Make Better Decisions?", concept: "Most decisions are reversible. Decide fast, learn, adjust.", example: "Choosing a project tool is a two-way door; do it quickly.", origin: "Jeff Bezos", xp: 50 },
-    { id: 15, name: "KWL", category: "II. How Do I Make Better Decisions?", concept: "What I Know, What I Wonder, What I Learned.", example: "AI writing tool: K: current cost; W: handles jargon?; L: net gain 40%.", origin: "Donna Ogle", xp: 50 },
-    { id: 16, name: "The Personal README", category: "III. How Do I Communicate More Effectively?", concept: "A one-page user manual for working with you.", example: "Peak hours 8-11am, async preferred, direct feedback.", origin: "Software README", xp: 50 },
-    { id: 17, name: "FLIP It Email", category: "III. How Do I Communicate More Effectively?", concept: "Put the ask first, context second.", example: "Action needed: confirm delay by Thursday. Why: metadata issues.", origin: "Common", xp: 50 },
-    { id: 18, name: "The One-Pager", category: "III. How Do I Communicate More Effectively?", concept: "Condense updates to one page for executives.", example: "Status, developments, decisions, risks.", origin: "General", xp: 50 },
-    { id: 19, name: "The Weekly Update", category: "III. How Do I Communicate More Effectively?", concept: "52 weekly summaries = your annual review, pre-written.", example: "Completed, in progress, blockers, highlights.", origin: "General", xp: 50 },
-    { id: 20, name: "Skip-Level Meetings", category: "III. How Do I Communicate More Effectively?", concept: "Align your work to the skip-level person's goals.", example: "Content audit reduces support tickets (their cost-efficiency goal).", origin: "General", xp: 50 },
-    { id: 21, name: "Blue/Green/Red Speakers", category: "III. How Do I Communicate More Effectively?", concept: "Categorise meeting contributions by value.", example: "Blue: nods; green: moves forward; red: blocks without proposing.", origin: "General", xp: 50 },
-    { id: 22, name: "The Teach-Back Method", category: "III. How Do I Communicate More Effectively?", concept: "Ask them to explain it back to confirm understanding.", example: "Walk me through how you'd update the KB after a launch.", origin: "Healthcare AHRQ", xp: 50 },
-    { id: 23, name: "Working Out Loud", category: "III. How Do I Communicate More Effectively?", concept: "Make work visible, narrate it, frame it as contribution.", example: "Post wireframes early to avoid duplicate work.", origin: "Bryce Williams", xp: 50 },
-    { id: 24, name: "The ONE Thing", category: "IV. How Do I Get More Done with Less Friction?", concept: "The one task that makes everything else easier or unnecessary.", example: "Migration plan – unblocks three teams.", origin: "Gary Keller", xp: 50 },
-    { id: 25, name: "Energy-Based Scheduling", category: "IV. How Do I Get More Done with Less Friction?", concept: "Schedule by energy peaks, not arbitrary time slots.", example: "Deep work 9-11, meetings 11-1, admin 2-3, creative burst 3-4:30.", origin: "Daniel Pink", xp: 50 },
-    { id: 26, name: "Parkinson's Law", category: "IV. How Do I Get More Done with Less Friction?", concept: "Work expands to fill the time. Set tighter deadlines.", example: "1-hour meeting → 25 minutes, same agenda.", origin: "C.N. Parkinson", xp: 50 },
-    { id: 27, name: "The Two-Minute Rule", category: "IV. How Do I Get More Done with Less Friction?", concept: "Under two minutes? Do it now.", example: "Reply to that email now instead of deferring.", origin: "David Allen", xp: 50 },
-    { id: 28, name: "Breaking Down the Boxes", category: "IV. How Do I Get More Done with Less Friction?", concept: "Small boring tasks pile up into crises. Do them now.", example: "5-min KB update prevents wrong info to customers.", origin: "General", xp: 50 },
-    { id: 29, name: "Fire and Forget", category: "IV. How Do I Get More Done with Less Friction?", concept: "Be the employee trusted to solve problems independently.", example: "On it – data pull, interviews, findings by Thursday.", origin: "Military / Management", xp: 50 },
-    { id: 30, name: "The Don't-Do-It List", category: "IV. How Do I Get More Done with Less Friction?", concept: "Negative commitments are stronger than positive intentions.", example: "Will not publish without SME review. Will not attend agenda-less meetings.", origin: "General", xp: 50 },
-    { id: 31, name: "Map Then Automate", category: "IV. How Do I Get More Done with Less Friction?", concept: "Understand your workflow before optimising with tools.", example: "Map content creation → automate steps 2 and 4 only.", origin: "General", xp: 50 },
-    { id: 32, name: "Kaizen", category: "V. How Do I Keep Improving?", concept: "Small daily improvements, compounded over time.", example: "Friday: remove one friction point. 50 improvements/year.", origin: "Toyota / Masaaki Imai", xp: 50 },
-    { id: 33, name: "Go to Gemba", category: "V. How Do I Keep Improving?", concept: "Go where the work happens. Observe, listen, learn.", example: "Sit with agent – rename obscure article, usage triples.", origin: "Lean", xp: 50 },
-    { id: 34, name: "The Feedback Flywheel", category: "V. How Do I Keep Improving?", concept: "Embed feedback loops so improvement sustains itself.", example: "Every output gets feedback; act on findings; iterate.", origin: "General", xp: 50 },
-    { id: 35, name: "The Experiment Log", category: "V. How Do I Keep Improving?", concept: "Record hypotheses and results. Build your evidence base.", example: "Video walkthroughs → 32% ticket reduction. Next: video vs screenshots.", origin: "General", xp: 50 },
-    { id: 36, name: "Shu-Ha-Ri", category: "V. How Do I Keep Improving?", concept: "Follow rules, bend rules, transcend rules. Three mastery stages.", example: "New writer: follow style guide; later: rewrite it.", origin: "Aikido / Agile", xp: 50 },
-    { id: 37, name: "Rapid Prototyping", category: "V. How Do I Keep Improving?", concept: "Build rough, test fast, learn cheap.", example: "Test newsletter with 20 colleagues before designing templates.", origin: "Design thinking", xp: 50 },
-    { id: 38, name: "Red Teaming & Dogfooding", category: "V. How Do I Keep Improving?", concept: "Attack your own work. Use what you build.", example: "Red team follows onboarding guide; dogfood the checklist.", origin: "Military / Tech", xp: 50 },
-    { id: 39, name: "Customer Journey Mapping", category: "V. How Do I Keep Improving?", concept: "Map the full experience including feelings and friction.", example: "Cancel subscription: greyed-out button → 300 calls/month.", origin: "Design thinking", xp: 50 },
-    { id: 40, name: "The Johari Window", category: "V. How Do I Keep Improving?", concept: "What you know vs. what others see. Expand the overlap.", example: "You think you communicate well; feedback reveals you dominate.", origin: "Luft & Ingham", xp: 50 },
-    { id: 41, name: "The Swipe File", category: "VI. How Do I Build a Career, Not Just Do a Job?", concept: "Collect examples of excellent work. Borrow patterns.", example: "Save clear emails, reuse structure later.", origin: "Gary Halbert", xp: 50 },
-    { id: 42, name: "The Parking Lot", category: "VI. How Do I Build a Career, Not Just Do a Job?", concept: "Capture ideas that aren't ready yet. Revisit them.", example: "Forum idea parked, used 6 months later for retention.", origin: "General", xp: 50 },
-    { id: 43, name: "The Work-Sharing Buddy", category: "VI. How Do I Build a Career, Not Just Do a Job?", concept: "A trusted peer for mutual pre-stakeholder feedback.", example: "Buddy spots buried recommendation before VP sees it.", origin: "General", xp: 50 }
+    { id: 1, name: "Inversion", category: "Thinking", concept: "Ask how to guarantee failure, then avoid those things.", example: "Onboarding: avoid no laptop, no introductions, etc.", origin: "Charlie Munger / Carl Jacobi", xp: 50 },
+    { id: 2, name: "Second-Order Thinking", category: "Thinking", concept: "Ask 'and then what?' to see consequences behind consequences.", example: "Budget cut → docs degrade → new hires slow → burnout.", origin: "Howard Marks", xp: 50 },
+    { id: 3, name: "The Map Is Not the Territory", category: "Thinking", concept: "Every model is a simplification. Go see the real thing.", example: "Dashboard says 94% freshness, but agents don't use the KB.", origin: "Alfred Korzybski", xp: 50 },
+    { id: 4, name: "Hanlon's Razor", category: "Thinking", concept: "Don't assume malice when neglect is likelier.", example: "Stakeholder changed request – probably overwhelmed, not undermining.", origin: "Robert J. Hanlon", xp: 50 },
+    { id: 5, name: "The Empty Boat", category: "Thinking", concept: "Most workplace friction has no villain.", example: "No reply for 3 days? They're drowning in inbox.", origin: "Zhuangzi", xp: 50 },
+    { id: 6, name: "The Cobra Effect", category: "Thinking", concept: "Good intentions + wrong incentives = worse problems.", example: "Support KPI 'resolution time' leads to ticket dumping.", origin: "Horst Siebert", xp: 50 },
+    { id: 7, name: "Goodhart's Law", category: "Thinking", concept: "When a measure becomes a target, it stops being a good measure.", example: "Content output metric → quantity over quality.", origin: "Charles Goodhart", xp: 50 },
+    { id: 8, name: "The Decision Journal", category: "Decision", concept: "Track decisions, reasoning, and outcomes. Review quarterly.", example: "Journal showed the process was sound, timeline wrong.", origin: "Daniel Kahneman / Farnam Street", xp: 50 },
+    { id: 9, name: "Fear-Setting", category: "Decision", concept: "Define worst fears, prevention, and recovery plans.", example: "Going freelance: define, prevent, repair.", origin: "Tim Ferriss / Seneca", xp: 50 },
+    { id: 10, name: "Pre-mortem", category: "Decision", concept: "Imagine the project failed. Write down what went wrong.", example: "Portal pre-mortem uncovered missing mobile support.", origin: "Gary Klein", xp: 50 },
+    { id: 11, name: "The Five Whys", category: "Decision", concept: "Ask 'why?' five times to reach root cause.", example: "Wrong info → outdated article → no review process.", origin: "Taiichi Ohno", xp: 50 },
+    { id: 12, name: "The 3-1-1 Method", category: "Decision", concept: "One problem, three solutions, one recommendation.", example: "Timeout: retry, batch, or support; recommend retry now.", origin: "Common practice", xp: 50 },
+    { id: 13, name: "DACI", category: "Decision", concept: "Driver, Approver, Contributors, Informed.", example: "KM drives, VP approves, SMEs contribute.", origin: "Intuit / Atlassian", xp: 50 },
+    { id: 14, name: "Bias for Action", category: "Decision", concept: "Most decisions are reversible. Decide fast, learn, adjust.", example: "Choose a tool quickly and iterate.", origin: "Jeff Bezos", xp: 50 },
+    { id: 15, name: "KWL", category: "Decision", concept: "What I Know, What I Wonder, What I Learned.", example: "Trial a tool and compare assumptions vs outcomes.", origin: "Donna Ogle", xp: 50 },
+    { id: 16, name: "The Personal README", category: "Communication", concept: "A one-page guide for how to work with you.", example: "Preferred hours, async style, feedback preferences.", origin: "Software README", xp: 50 },
+    { id: 17, name: "FLIP It Email", category: "Communication", concept: "Put the ask first, context second.", example: "Action needed by Thursday; details below.", origin: "Common", xp: 50 },
+    { id: 18, name: "The One-Pager", category: "Communication", concept: "Condense updates to one page.", example: "Status, decisions, risks.", origin: "General", xp: 50 },
+    { id: 19, name: "The Weekly Update", category: "Communication", concept: "52 summaries become your annual review.", example: "Done, in-progress, blockers, highlights.", origin: "General", xp: 50 },
+    { id: 20, name: "Skip-Level Meetings", category: "Communication", concept: "Align work to leadership priorities.", example: "Map project impact to cost-efficiency goals.", origin: "General", xp: 50 },
+    { id: 21, name: "Blue/Green/Red Speakers", category: "Communication", concept: "Categorize meeting contributions by value.", example: "Green contributes forward motion.", origin: "General", xp: 50 },
+    { id: 22, name: "The Teach-Back Method", category: "Communication", concept: "Ask others to explain it back.", example: "Have teammate explain rollout process.", origin: "Healthcare AHRQ", xp: 50 },
+    { id: 23, name: "Working Out Loud", category: "Communication", concept: "Make progress visible early.", example: "Share drafts before final version.", origin: "Bryce Williams", xp: 50 },
+    { id: 24, name: "The ONE Thing", category: "Productivity", concept: "Find the one task that unlocks the rest.", example: "Draft migration plan first.", origin: "Gary Keller", xp: 50 },
+    { id: 25, name: "Energy-Based Scheduling", category: "Productivity", concept: "Schedule by energy peaks.", example: "Deep work when attention is highest.", origin: "Daniel Pink", xp: 50 },
+    { id: 26, name: "Parkinson's Law", category: "Productivity", concept: "Work expands to fill available time.", example: "Compress a 1-hour meeting to 25 minutes.", origin: "C.N. Parkinson", xp: 50 },
+    { id: 27, name: "The Two-Minute Rule", category: "Productivity", concept: "If it takes two minutes, do it now.", example: "Resolve tiny tasks immediately.", origin: "David Allen", xp: 50 },
+    { id: 28, name: "Breaking Down the Boxes", category: "Productivity", concept: "Small neglected tasks become large crises.", example: "Quick KB update prevents support issues.", origin: "General", xp: 50 },
+    { id: 29, name: "Fire and Forget", category: "Productivity", concept: "Take ownership and deliver without micromanagement.", example: "Return with findings by Thursday.", origin: "Military / Management", xp: 50 },
+    { id: 30, name: "The Don't-Do-It List", category: "Productivity", concept: "Define what you refuse to do.", example: "No publishing without review.", origin: "General", xp: 50 },
+    { id: 31, name: "Map Then Automate", category: "Productivity", concept: "Understand workflow before automating.", example: "Map process, then automate bottlenecks.", origin: "General", xp: 50 },
+    { id: 32, name: "Kaizen", category: "Improvement", concept: "Small daily improvements compound.", example: "Fix one friction point each week.", origin: "Toyota / Masaaki Imai", xp: 50 },
+    { id: 33, name: "Go to Gemba", category: "Improvement", concept: "Go where work happens and observe directly.", example: "Sit with support agent and learn pain points.", origin: "Lean", xp: 50 },
+    { id: 34, name: "The Feedback Flywheel", category: "Improvement", concept: "Embed recurring feedback loops.", example: "Collect feedback after every output.", origin: "General", xp: 50 },
+    { id: 35, name: "The Experiment Log", category: "Improvement", concept: "Track hypothesis, action, and results.", example: "Document outcomes of each test.", origin: "General", xp: 50 },
+    { id: 36, name: "Shu-Ha-Ri", category: "Improvement", concept: "Follow, adapt, transcend.", example: "Start with rules, then innovate.", origin: "Aikido / Agile", xp: 50 },
+    { id: 37, name: "Rapid Prototyping", category: "Improvement", concept: "Build rough, test fast, learn cheap.", example: "Pilot with a small cohort first.", origin: "Design thinking", xp: 50 },
+    { id: 38, name: "Red Teaming & Dogfooding", category: "Improvement", concept: "Attack your own work and use it yourself.", example: "Dogfood onboarding checklist.", origin: "Military / Tech", xp: 50 },
+    { id: 39, name: "Customer Journey Mapping", category: "Improvement", concept: "Map full user experience including friction.", example: "Identify hidden cancellation friction.", origin: "Design thinking", xp: 50 },
+    { id: 40, name: "The Johari Window", category: "Improvement", concept: "Expand overlap between self-view and external feedback.", example: "Use feedback to reveal blind spots.", origin: "Luft & Ingham", xp: 50 },
+    { id: 41, name: "The Swipe File", category: "Career", concept: "Collect examples of excellent work.", example: "Reuse high-clarity structures.", origin: "Gary Halbert", xp: 50 },
+    { id: 42, name: "The Parking Lot", category: "Career", concept: "Capture ideas not ready yet.", example: "Revisit parked ideas monthly.", origin: "General", xp: 50 },
+    { id: 43, name: "The Work-Sharing Buddy", category: "Career", concept: "Use a trusted peer to review before stakeholders.", example: "Catch flaws before executive review.", origin: "General", xp: 50 }
 ];
 
 let state = {
@@ -73,7 +71,7 @@ function loadState() {
 }
 
 function saveState() {
-    localStorage.setItem("dailyQuestState", JSON.stringify(state));
+    localStorage.setItem("dailyQuestStateV2", JSON.stringify(state));
 }
 
 function todayString() {
@@ -266,7 +264,6 @@ function renderSpellbook() {
             list.appendChild(li);
         });
     }
-}
 
 function renderQuestLog() {
     const container = document.getElementById("questLogList");
@@ -314,7 +311,7 @@ function handleTrialSubmit() {
 
 function init() {
     loadState();
-    renderQuest();
+    renderPage();
 
     document.getElementById("completeBtn").addEventListener("click", () => {
         document.getElementById("trialSection").scrollIntoView({ behavior: "smooth" });
