@@ -60,19 +60,11 @@ let state = {
 };
 
 let activeTrial = null;
+const STORAGE_KEY = "dailyQuestStateV2";
+const LEGACY_STORAGE_KEY = "dailyQuestState";
 
 function loadState() {
-    let saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) {
-        for (const key of LEGACY_STORAGE_KEYS) {
-            const legacy = localStorage.getItem(key);
-            if (legacy) {
-                saved = legacy;
-                break;
-            }
-        }
-    }
-
+    const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
     if (saved) {
         try {
             const parsed = JSON.parse(saved);
@@ -90,12 +82,7 @@ function loadState() {
 }
 
 function saveState() {
-    const payload = {
-        ...state,
-        xpBalance,
-        totalXP: xpBalance
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
 function todayString() {
@@ -306,6 +293,7 @@ function renderSpellbook() {
         list.innerHTML = "<li>Your spellbook is empty. Add frameworks you love!</li>";
         return;
     }
+}
 
     bookmarked.forEach((q) => {
         const li = document.createElement("li");
@@ -335,8 +323,9 @@ function closeModals() {
     });
 }
 
-function setupEvents() {
-    document.getElementById("favoriteBtn").addEventListener("click", toggleSpellbook);
+function init() {
+    loadState();
+    renderQuest();
 
     document.getElementById("completeBtn").addEventListener("click", swapToNextQuest);
     document.getElementById("nextQuestBtn").addEventListener("click", swapToNextQuest);
