@@ -55,9 +55,11 @@ let state = {
 };
 
 let activeTrial = null;
+const STORAGE_KEY = "dailyQuestStateV2";
+const LEGACY_STORAGE_KEY = "dailyQuestState";
 
 function loadState() {
-    const saved = localStorage.getItem("dailyQuestState");
+    const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
     if (saved) {
         try {
             state = { ...state, ...JSON.parse(saved) };
@@ -71,7 +73,7 @@ function loadState() {
 }
 
 function saveState() {
-    localStorage.setItem("dailyQuestStateV2", JSON.stringify(state));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
 function todayString() {
@@ -264,6 +266,7 @@ function renderSpellbook() {
             list.appendChild(li);
         });
     }
+}
 
 function renderQuestLog() {
     const container = document.getElementById("questLogList");
@@ -311,7 +314,7 @@ function handleTrialSubmit() {
 
 function init() {
     loadState();
-    renderPage();
+    renderQuest();
 
     document.getElementById("completeBtn").addEventListener("click", () => {
         document.getElementById("trialSection").scrollIntoView({ behavior: "smooth" });
