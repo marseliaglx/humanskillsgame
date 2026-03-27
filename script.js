@@ -130,22 +130,27 @@ function buildTrial(quest) {
 
     activeTrial = {
         questId: quest.id,
-        question: `Which statement best captures the purpose of “${quest.name}”?`,
+        question: quest.quizQuestion,
         options,
-        correctIndex: options.indexOf(correct)
+        correctIndex: quest.correctAnswer
     };
 }
 
 function renderWisdomJourney(quest) {
-    document.getElementById("questHeroCategory").innerText = `${quest.category.toUpperCase()} • ${todayString()}`;
+    document.getElementById("questHeroCategory").innerText = `FRAMEWORK • ${todayString()}`;
     document.getElementById("questHeroName").innerText = quest.name;
     document.getElementById("questHeroConcept").innerText = quest.concept;
 
-    document.getElementById("essenceBody").innerText = `${quest.concept} In practice: ${quest.example}`;
+    document.getElementById("essenceBody").innerHTML = quest.description;
     document.getElementById("patternName").innerText = quest.name;
-    document.getElementById("patternQuote").innerText = `“${quest.example}”`;
+    document.getElementById("patternQuote").innerText = `“${quest.concept}”`;
 
-    document.getElementById("originBody").innerText = `${quest.name} is commonly linked to ${quest.origin}. Use it as a cognitive checkpoint before you commit action.`;
+    document.getElementById("originBody").innerText = `Takeaway: ${quest.example}`;
+    document.getElementById("questCategory").innerText = quest.category;
+    document.getElementById("questName").innerText = quest.name;
+    document.getElementById("concept").innerHTML = `<strong>🧠 Quote:</strong> ${quest.concept}`;
+    document.getElementById("example").innerHTML = `<strong>📖 Takeaway:</strong> ${quest.example}`;
+    document.getElementById("origin").innerHTML = `<strong>🏛️ Source:</strong> ${quest.origin}`;
 
     document.getElementById("questCategory").innerText = quest.category;
     document.getElementById("questName").innerText = quest.name;
